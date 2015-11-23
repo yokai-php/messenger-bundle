@@ -1,0 +1,5 @@
+
+messenger:
+  channels:
+    swiftmailer: false
+    doctrine: true

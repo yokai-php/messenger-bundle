@@ -1,0 +1,7 @@
+
+messenger:
+  channels:
+    swiftmailer:
+      from_addr: no-reply@acme.org
+      translator_catalog: messaging
+    doctrine: false

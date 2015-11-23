@@ -1,0 +1,31 @@
+{
+    "name": "yeugone/messenger-bundle",
+    "description": "Simplify message sending processes in a Symfony2 project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yann Eugoné",
+            "email": "yann.eugone@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "symfony/symfony": "~2.7",
+        "twig/twig": "~1.20|~2.0"
+    },
+    "suggest": {
+        "doctrine/orm": "Required to use the Doctrine channel that allow storing message in database",
+        "doctrine/doctrine-bundle": "Required to use the Doctrine channel that allow storing message in database",
+        "symfony/swiftmailer-bundle": "Required to use the Doctrine channel that allow sending message via email"
+    },
+    "require-dev": {
+        "doctrine/orm": "^2.4.8",
+        "doctrine/doctrine-bundle": "~1.4",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "phpunit/phpunit": "~4.6"
+    },
+    "autoload": {
+        "psr-4": { "MessengerBundle\\": "" }
+    },
+    "minimum-stability": "stable"
+}
