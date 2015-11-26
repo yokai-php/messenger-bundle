@@ -2,13 +2,13 @@
 
 namespace MessengerBundle\Tests\DependencyInjection;
 
+use Doctrine\ORM\EntityManager;
 use MessengerBundle\Message;
 use MessengerBundle\MessengerBundle;
 use MessengerBundle\Tests\Fixtures\Channel\DummyChannel;
 use MessengerBundle\Tests\Fixtures\Channel\InvalidChannel;
 use MessengerBundle\Tests\Fixtures\InvalidMessage;
 use Psr\Log\LoggerInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -34,7 +34,7 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
         $this->container->set('translator', $this->prophesize(TranslatorInterface::class)->reveal());
         $this->container->set('logger', $this->prophesize(LoggerInterface::class)->reveal());
         $this->container->set('mailer', $this->prophesize(\Swift_Mailer::class)->reveal());
-        $this->container->set('doctrine', $this->prophesize(RegistryInterface::class)->reveal());
+        $this->container->setDefinition('doctrine.orm.default_entity_manager', new Definition(EntityManager::class));
 
         $this->container->registerExtension($bundle->getContainerExtension());
         $bundle->build($this->container);

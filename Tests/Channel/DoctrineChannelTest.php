@@ -2,6 +2,7 @@
 
 namespace MessengerBundle\Tests\Channel;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use MessengerBundle\Channel\DoctrineChannel;
 use MessengerBundle\Delivery;
@@ -10,7 +11,6 @@ use MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
 use MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -21,11 +21,11 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
     /**
      * @var ObjectProphecy
      */
-    private $doctrine;
+    private $manager;
 
     protected function setUp()
     {
-        $this->doctrine = $this->prophesize(RegistryInterface::class);
+        $this->manager = $this->prophesize(EntityManager::class);
     }
 
     protected function tearDown()
@@ -38,7 +38,7 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
     protected function createChannel(array $defaults)
     {
         return new DoctrineChannel(
-            $this->doctrine->reveal(),
+            $this->manager->reveal(),
             $defaults
         );
     }
@@ -76,15 +76,10 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
             Argument::which('getRecipientId', 1)
         );
 
-        $manager = $this->prophesize(EntityManagerInterface::class);
-        $manager->persist($notificationProphecy)
+        $this->manager->persist($notificationProphecy)
             ->shouldBeCalled();
-        $manager->flush($notificationProphecy)
+        $this->manager->flush($notificationProphecy)
             ->shouldBeCalled();
-
-        $this->doctrine->getManagerForClass(Notification::class)
-            ->shouldBeCalled()
-            ->willReturn($manager->reveal());
 
         $channel = $this->createChannel([]);
 

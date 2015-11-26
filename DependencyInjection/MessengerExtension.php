@@ -91,9 +91,12 @@ class MessengerExtension extends Extension
      */
     private function registerDoctrine(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
-        $container->setParameter(
-            'messenger.doctrine_channel_defaults',
-            $config
+        $container->setAlias(
+            'messenger.doctrine_channel_manager',
+            sprintf(
+                'doctrine.orm.%s_entity_manager',
+                $config['manager']
+            )
         );
         $loader->load('doctrine.xml');
     }

@@ -6,6 +6,7 @@ use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use MessengerBundle\Entity\Notification;
+use MessengerBundle\Recipient\DoctrineRecipientInterface;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
@@ -36,12 +37,12 @@ class NotificationRepository
     }
 
     /**
-     * @param QueryBuilder $builder
-     * @param object       $recipient
+     * @param QueryBuilder               $builder
+     * @param DoctrineRecipientInterface $recipient
      *
      * @return Notification[]
      */
-    public function addRecipientConditions(QueryBuilder $builder, $recipient)
+    public function addRecipientConditions(QueryBuilder $builder, DoctrineRecipientInterface $recipient)
     {
         $alias = $builder->getRootAliases()[0];
         $builder

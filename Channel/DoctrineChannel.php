@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use MessengerBundle\Delivery;
 use MessengerBundle\Entity\Notification;
 use MessengerBundle\Recipient\DoctrineRecipientInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -15,23 +14,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DoctrineChannel implements ChannelInterface
 {
     /**
-     * @var RegistryInterface
+     * @var EntityManager
      */
-    private $doctrine;
+    private $manager;
 
     /**
-     * @var array
+     * @param EntityManager $manager
      */
-    private $defaults;
-
-    /**
-     * @param RegistryInterface $doctrine
-     * @param array             $defaults
-     */
-    public function __construct(RegistryInterface $doctrine, array $defaults)
+    public function __construct(EntityManager $manager)
     {
-        $this->doctrine = $doctrine;
-        $this->defaults = $defaults;
+        $this->manager = $manager;
     }
 
     /**
@@ -51,7 +43,6 @@ class DoctrineChannel implements ChannelInterface
      */
     public function configure(OptionsResolver $resolver)
     {
-        //todo
     }
 
     /**
@@ -65,9 +56,7 @@ class DoctrineChannel implements ChannelInterface
             $delivery->getRecipient()
         );
 
-        /* @var $manager EntityManager */
-        $manager = $this->doctrine->getManagerForClass(Notification::class);
-        $manager->persist($notification);
-        $manager->flush($notification);
+        $this->manager->persist($notification);
+        $this->manager->flush($notification);
     }
 }

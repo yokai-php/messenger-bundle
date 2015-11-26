@@ -7,8 +7,7 @@
     <services>
 
         <service id="messenger.doctrine_channel" class="MessengerBundle\Channel\DoctrineChannel">
-            <argument type="service" id="doctrine"/>
-            <argument>%messenger.doctrine_channel_defaults%</argument>
+            <argument type="service" id="messenger.doctrine_channel_manager"/>
 
             <tag name="messenger.channel" alias="doctrine"/>
         </service>

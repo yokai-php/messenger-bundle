@@ -94,6 +94,9 @@ class Configuration implements ConfigurationInterface
 
         $doctrine
             ->canBeEnabled()
+            ->children()
+                ->scalarNode('manager')->defaultValue('default')->end()
+            ->end()
         ;
 
         return $doctrine;
