@@ -6,11 +6,11 @@
 
     <services>
 
-        <service id="messenger.swiftmailer_channel" class="MessengerBundle\Channel\SwiftmailerChannel">
+        <service id="yokai_messenger.swiftmailer_channel" class="Yokai\MessengerBundle\Channel\SwiftmailerChannel">
             <argument type="service" id="mailer"/>
-            <argument>%messenger.swiftmailer_channel_defaults%</argument>
+            <argument>%yokai_messenger.swiftmailer_channel_defaults%</argument>
 
-            <tag name="messenger.channel" alias="swiftmailer"/>
+            <tag name="yokai_messenger.channel" alias="swiftmailer"/>
         </service>
 
     </services>

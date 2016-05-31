@@ -1,12 +1,12 @@
 <?php
 
-namespace MessengerBundle\Repository;
+namespace Yokai\MessengerBundle\Repository;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use MessengerBundle\Entity\Notification;
-use MessengerBundle\Recipient\DoctrineRecipientInterface;
+use Yokai\MessengerBundle\Entity\Notification;
+use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
@@ -70,7 +70,7 @@ class NotificationRepository
             ->select('COUNT(notification)')
         ;
         $this->addRecipientConditions($builder, $recipient);
-        $builder->andWhere($builder->expr()->isNull('messenger.deliveredAt'));
+        $builder->andWhere($builder->expr()->isNull('yokai_messenger.deliveredAt'));
 
         return intval($builder->getQuery()->getSingleScalarResult());
     }

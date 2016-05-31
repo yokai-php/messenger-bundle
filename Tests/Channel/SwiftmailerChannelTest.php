@@ -1,11 +1,11 @@
 <?php
 
-namespace MessengerBundle\Tests\Channel;
+namespace Yokai\MessengerBundle\Tests\Channel;
 
-use MessengerBundle\Channel\SwiftmailerChannel;
-use MessengerBundle\Delivery;
-use MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
-use MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
+use Yokai\MessengerBundle\Channel\SwiftmailerChannel;
+use Yokai\MessengerBundle\Delivery;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\OptionsResolver\OptionsResolver;

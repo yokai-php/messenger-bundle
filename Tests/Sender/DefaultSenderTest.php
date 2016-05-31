@@ -1,16 +1,16 @@
 <?php
 
-namespace MessengerBundle\Tests\Sender;
+namespace Yokai\MessengerBundle\Tests\Sender;
 
-use MessengerBundle\Channel\ChannelInterface;
-use MessengerBundle\Delivery;
-use MessengerBundle\Exception\BadConfigurationException;
-use MessengerBundle\Exception\ChannelHandleException;
-use MessengerBundle\Helper\ContentBuilder;
-use MessengerBundle\Message;
-use MessengerBundle\Sender\DefaultSender;
-use MessengerBundle\Tests\Fixtures\OptionsResolverException;
-use MessengerBundle\Tests\Fixtures\Recipient\DummyRecipient;
+use Yokai\MessengerBundle\Channel\ChannelInterface;
+use Yokai\MessengerBundle\Delivery;
+use Yokai\MessengerBundle\Exception\BadConfigurationException;
+use Yokai\MessengerBundle\Exception\ChannelHandleException;
+use Yokai\MessengerBundle\Helper\ContentBuilder;
+use Yokai\MessengerBundle\Message;
+use Yokai\MessengerBundle\Sender\DefaultSender;
+use Yokai\MessengerBundle\Tests\Fixtures\OptionsResolverException;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DummyRecipient;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
@@ -66,7 +66,7 @@ class DefaultSenderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \MessengerBundle\Exception\BadMethodCallException
+     * @expectedException \Yokai\MessengerBundle\Exception\BadMethodCallException
      */
     public function testAddMessageToUnknownChannelThrowException()
     {
@@ -78,7 +78,7 @@ class DefaultSenderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \MessengerBundle\Exception\BadMethodCallException
+     * @expectedException \Yokai\MessengerBundle\Exception\BadMethodCallException
      */
     public function testSendingUnknownMessageThrowException()
     {

@@ -1,9 +1,9 @@
 <?php
 
-namespace MessengerBundle\Entity;
+namespace Yokai\MessengerBundle\Entity;
 
 use Doctrine\Common\Util\ClassUtils;
-use MessengerBundle\Recipient\DoctrineRecipientInterface;
+use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
 
 /**
  * Notification Doctrine ORM entity

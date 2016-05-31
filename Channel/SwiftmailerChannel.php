@@ -1,9 +1,9 @@
 <?php
 
-namespace MessengerBundle\Channel;
+namespace Yokai\MessengerBundle\Channel;
 
-use MessengerBundle\Delivery;
-use MessengerBundle\Recipient\SwiftmailerRecipientInterface;
+use Yokai\MessengerBundle\Delivery;
+use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

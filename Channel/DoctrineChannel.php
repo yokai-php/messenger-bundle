@@ -1,11 +1,11 @@
 <?php
 
-namespace MessengerBundle\Channel;
+namespace Yokai\MessengerBundle\Channel;
 
 use Doctrine\ORM\EntityManager;
-use MessengerBundle\Delivery;
-use MessengerBundle\Entity\Notification;
-use MessengerBundle\Recipient\DoctrineRecipientInterface;
+use Yokai\MessengerBundle\Delivery;
+use Yokai\MessengerBundle\Entity\Notification;
+use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

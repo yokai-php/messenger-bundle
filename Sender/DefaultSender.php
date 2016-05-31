@@ -1,15 +1,15 @@
 <?php
 
-namespace MessengerBundle\Sender;
+namespace Yokai\MessengerBundle\Sender;
 
-use MessengerBundle\Channel\ChannelInterface;
-use MessengerBundle\Delivery;
-use MessengerBundle\Exception\BadConfigurationException;
-use MessengerBundle\Exception\BadMethodCallException;
-use MessengerBundle\Exception\ChannelHandleException;
-use MessengerBundle\Exception\ExceptionInterface;
-use MessengerBundle\Helper\ContentBuilder;
-use MessengerBundle\Message;
+use Yokai\MessengerBundle\Channel\ChannelInterface;
+use Yokai\MessengerBundle\Delivery;
+use Yokai\MessengerBundle\Exception\BadConfigurationException;
+use Yokai\MessengerBundle\Exception\BadMethodCallException;
+use Yokai\MessengerBundle\Exception\ChannelHandleException;
+use Yokai\MessengerBundle\Exception\ExceptionInterface;
+use Yokai\MessengerBundle\Helper\ContentBuilder;
+use Yokai\MessengerBundle\Message;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;

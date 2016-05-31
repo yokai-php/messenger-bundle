@@ -1,8 +1,8 @@
 <?php
 
-namespace MessengerBundle\Tests\Helper;
+namespace Yokai\MessengerBundle\Tests\Helper;
 
-use MessengerBundle\Helper\ContentBuilder;
+use Yokai\MessengerBundle\Helper\ContentBuilder;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -46,7 +46,7 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \MessengerBundle\Exception\BadMethodCallException
+     * @expectedException \Yokai\MessengerBundle\Exception\BadMethodCallException
      */
     public function testConfigureShouldBeCalledBeforeGetBody()
     {
@@ -56,7 +56,7 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \MessengerBundle\Exception\BadMethodCallException
+     * @expectedException \Yokai\MessengerBundle\Exception\BadMethodCallException
      */
     public function testConfigureShouldBeCalledBeforeGetSubject()
     {

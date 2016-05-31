@@ -1,9 +1,9 @@
 <?php
 
-namespace MessengerBundle\Tests\Fixtures\Channel;
+namespace Yokai\MessengerBundle\Tests\Fixtures\Channel;
 
-use MessengerBundle\Channel\ChannelInterface;
-use MessengerBundle\Delivery;
+use Yokai\MessengerBundle\Channel\ChannelInterface;
+use Yokai\MessengerBundle\Delivery;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

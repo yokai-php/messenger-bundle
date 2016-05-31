@@ -1,13 +1,12 @@
 <?php
 
-namespace MessengerBundle\Tests\DependencyInjection;
+namespace Yokai\MessengerBundle\Tests\DependencyInjection;
 
 use Doctrine\ORM\EntityManager;
-use MessengerBundle\Message;
-use MessengerBundle\MessengerBundle;
-use MessengerBundle\Tests\Fixtures\Channel\DummyChannel;
-use MessengerBundle\Tests\Fixtures\Channel\InvalidChannel;
-use MessengerBundle\Tests\Fixtures\InvalidMessage;
+use Yokai\MessengerBundle\Message;
+use Yokai\MessengerBundle\Tests\Fixtures\Channel\DummyChannel;
+use Yokai\MessengerBundle\Tests\Fixtures\Channel\InvalidChannel;
+use Yokai\MessengerBundle\Tests\Fixtures\InvalidMessage;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -16,6 +15,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Yokai\MessengerBundle\YokaiMessengerBundle;
 
 class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,7 +26,7 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $bundle = new MessengerBundle();
+        $bundle = new YokaiMessengerBundle();
         $this->container = new ContainerBuilder();
 
         $this->container->setParameter('kernel.debug', true);
@@ -44,17 +44,17 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
     {
         $this->container->compile();
 
-        $this->assertFalse($this->container->has('messenger.sender'));
+        $this->assertFalse($this->container->has('yokai_messenger.sender'));
     }
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Service "test_channel" must implement interface "MessengerBundle\Channel\ChannelInterface".
+     * @expectedExceptionMessage Service "test_channel" must implement interface "Yokai\MessengerBundle\Channel\ChannelInterface".
      */
     public function testRegisteredChannelsShouldImplementInterface()
     {
         $definition = new Definition(InvalidChannel::class);
-        $definition->addTag('messenger.channel');
+        $definition->addTag('yokai_messenger.channel');
         $this->container->setDefinition('test_channel', $definition);
 
         $this->loadConfiguration($this->container, 'none.yml');
@@ -68,7 +68,7 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
     public function testRegisteredChannelsShouldDeclareAnAlias()
     {
         $definition = new Definition(DummyChannel::class);
-        $definition->addTag('messenger.channel');
+        $definition->addTag('yokai_messenger.channel');
         $this->container->setDefinition('test_channel', $definition);
 
         $this->loadConfiguration($this->container, 'none.yml');
@@ -78,18 +78,18 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
     public function testChannelsCanBeRegistered()
     {
         $definition = new Definition(DummyChannel::class);
-        $definition->addTag('messenger.channel', ['alias' => 'test_1', 'priority' => 10]);
+        $definition->addTag('yokai_messenger.channel', ['alias' => 'test_1', 'priority' => 10]);
         $this->container->setDefinition('test_channel_1', $definition);
 
         $definition = new Definition(DummyChannel::class);
-        $definition->addTag('messenger.channel', ['alias' => 'test_2']);
-        $definition->addTag('messenger.channel', ['alias' => 'test_2.not_used']); //this tag will not be computed
+        $definition->addTag('yokai_messenger.channel', ['alias' => 'test_2']);
+        $definition->addTag('yokai_messenger.channel', ['alias' => 'test_2.not_used']); //this tag will not be computed
         $this->container->setDefinition('test_channel_2', $definition);
 
         $this->loadConfiguration($this->container, 'none.yml');
         $this->container->compile();
 
-        $calls = $this->container->getDefinition('messenger.sender')->getMethodCalls();
+        $calls = $this->container->getDefinition('yokai_messenger.sender')->getMethodCalls();
 
         $this->assertCount(2, $calls);
 
@@ -108,12 +108,12 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Service "test_message" must be a "MessengerBundle\Message".
+     * @expectedExceptionMessage Service "test_message" must be a "Yokai\MessengerBundle\Message".
      */
     public function testRegisteredMessagesShouldBeOfMessageClass()
     {
         $definition = new Definition(InvalidMessage::class);
-        $definition->addTag('messenger.message');
+        $definition->addTag('yokai_messenger.message');
         $this->container->setDefinition('test_message', $definition);
 
         $this->loadConfiguration($this->container, 'none.yml');
@@ -127,7 +127,7 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
     public function testRegisteredMessagesDeclareOnWhichChannelItShouldBeHandled()
     {
         $definition = new Definition(Message::class);
-        $definition->addTag('messenger.message');
+        $definition->addTag('yokai_messenger.message');
         $this->container->setDefinition('test_message', $definition);
 
         $this->loadConfiguration($this->container, 'none.yml');
@@ -137,14 +137,14 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
     public function testMessagesCanBeRegisteredOnManyChannels()
     {
         $definition = new Definition(Message::class);
-        $definition->addTag('messenger.message', ['channel' => 'foo']);
-        $definition->addTag('messenger.message', ['channel' => 'bar']);
+        $definition->addTag('yokai_messenger.message', ['channel' => 'foo']);
+        $definition->addTag('yokai_messenger.message', ['channel' => 'bar']);
         $this->container->setDefinition('test_message', $definition);
 
         $this->loadConfiguration($this->container, 'none.yml');
         $this->container->compile();
 
-        $calls = $this->container->getDefinition('messenger.sender')->getMethodCalls();
+        $calls = $this->container->getDefinition('yokai_messenger.sender')->getMethodCalls();
 
         $this->assertCount(2, $calls);
 
@@ -191,16 +191,16 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
         $this->loadConfiguration($this->container, $resource);
         $this->container->compile();
 
-        $channels = $this->container->findTaggedServiceIds('messenger.channel');
+        $channels = $this->container->findTaggedServiceIds('yokai_messenger.channel');
 
         foreach ($enabledChannels as $channel) {
-            $this->assertTrue($this->container->has('messenger.' . $channel . '_channel'));
-            $this->assertArrayHasKey('messenger.' . $channel . '_channel', $channels);
+            $this->assertTrue($this->container->has('yokai_messenger.' . $channel . '_channel'));
+            $this->assertArrayHasKey('yokai_messenger.' . $channel . '_channel', $channels);
         }
 
         foreach ($disabledChannels as $channel) {
-            $this->assertFalse($this->container->has('messenger.' . $channel . '_channel'));
-            $this->assertArrayNotHasKey('messenger.' . $channel . '_channel', $channels);
+            $this->assertFalse($this->container->has('yokai_messenger.' . $channel . '_channel'));
+            $this->assertArrayNotHasKey('yokai_messenger.' . $channel . '_channel', $channels);
         }
     }
 

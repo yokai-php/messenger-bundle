@@ -1,6 +1,6 @@
 <?php
 
-namespace MessengerBundle\DependencyInjection;
+namespace Yokai\MessengerBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
  */
-class MessengerExtension extends Extension
+class YokaiMessengerExtension extends Extension
 {
     /**
      * @var string
@@ -36,11 +36,11 @@ class MessengerExtension extends Extension
         );
 
         $container->setParameter(
-            'messenger.content_builder_defaults',
+            'yokai_messenger.content_builder_defaults',
             $config['content_builder']
         );
         $container->setParameter(
-            'messenger.logging_channel',
+            'yokai_messenger.logging_channel',
             $config['logging_channel']
         );
 
@@ -68,6 +68,14 @@ class MessengerExtension extends Extension
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getAlias()
+    {
+        return $this->name;
+    }
+
+    /**
      * @param array            $config
      * @param ContainerBuilder $container
      * @param XmlFileLoader    $loader
@@ -75,7 +83,7 @@ class MessengerExtension extends Extension
     private function registerSwiftmailer(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $container->setParameter(
-            'messenger.swiftmailer_channel_defaults',
+            'yokai_messenger.swiftmailer_channel_defaults',
             [
                 'from' => $config['from_addr'],
                 'translator_catalog' => $config['translator_catalog'],
@@ -92,7 +100,7 @@ class MessengerExtension extends Extension
     private function registerDoctrine(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $container->setAlias(
-            'messenger.doctrine_channel_manager',
+            'yokai_messenger.doctrine_channel_manager',
             sprintf(
                 'doctrine.orm.%s_entity_manager',
                 $config['manager']

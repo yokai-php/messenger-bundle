@@ -1,8 +1,8 @@
 <?php
 
-namespace MessengerBundle\Tests\Fixtures\Recipient;
+namespace Yokai\MessengerBundle\Tests\Fixtures\Recipient;
 
-use MessengerBundle\Recipient\SwiftmailerRecipientInterface;
+use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>

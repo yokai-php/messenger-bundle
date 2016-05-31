@@ -1,5 +1,5 @@
 
-messenger:
+yokai_messenger:
   channels:
     swiftmailer: false
     doctrine: true

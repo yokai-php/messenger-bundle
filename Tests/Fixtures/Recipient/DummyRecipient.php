@@ -1,6 +1,6 @@
 <?php
 
-namespace MessengerBundle\Tests\Fixtures\Recipient;
+namespace Yokai\MessengerBundle\Tests\Fixtures\Recipient;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>

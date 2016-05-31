@@ -1,10 +1,10 @@
 <?php
 
-namespace MessengerBundle\Exception;
+namespace Yokai\MessengerBundle\Exception;
 
-use MessengerBundle\Channel\ChannelInterface;
-use MessengerBundle\Delivery;
-use MessengerBundle\Message;
+use Yokai\MessengerBundle\Channel\ChannelInterface;
+use Yokai\MessengerBundle\Delivery;
+use Yokai\MessengerBundle\Message;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>

@@ -1,9 +1,9 @@
 <?php
 
-namespace MessengerBundle\DependencyInjection\CompilerPass;
+namespace Yokai\MessengerBundle\DependencyInjection\CompilerPass;
 
-use MessengerBundle\Channel\ChannelInterface;
-use MessengerBundle\Message;
+use Yokai\MessengerBundle\Channel\ChannelInterface;
+use Yokai\MessengerBundle\Message;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -19,11 +19,11 @@ class ConfigureSenderCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('messenger.sender') && !$container->hasAlias('messenger.sender')) {
+        if (!$container->hasDefinition('yokai_messenger.sender') && !$container->hasAlias('yokai_messenger.sender')) {
             return;
         }
 
-        $definition = $container->findDefinition('messenger.sender');
+        $definition = $container->findDefinition('yokai_messenger.sender');
 
         $this->registerChannels($definition, $container);
         $this->registerMessages($definition, $container);
@@ -35,7 +35,7 @@ class ConfigureSenderCompilerPass implements CompilerPassInterface
      */
     private function registerChannels(Definition $definition, ContainerBuilder $container)
     {
-        foreach ($container->findTaggedServiceIds('messenger.channel') as $id => $config) {
+        foreach ($container->findTaggedServiceIds('yokai_messenger.channel') as $id => $config) {
             $refClass = new \ReflectionClass($container->getDefinition($id)->getClass());
             if (!$refClass->implementsInterface(ChannelInterface::class)) {
                 throw new \InvalidArgumentException(
@@ -73,7 +73,7 @@ class ConfigureSenderCompilerPass implements CompilerPassInterface
      */
     private function registerMessages(Definition $definition, ContainerBuilder $container)
     {
-        foreach ($container->findTaggedServiceIds('messenger.message') as $id => $config) {
+        foreach ($container->findTaggedServiceIds('yokai_messenger.message') as $id => $config) {
             if (Message::class !== $container->getDefinition($id)->getClass()) {
                 throw new \InvalidArgumentException(
                     sprintf(

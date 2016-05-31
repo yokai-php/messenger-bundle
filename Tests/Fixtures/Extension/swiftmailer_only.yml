@@ -1,5 +1,5 @@
 
-messenger:
+yokai_messenger:
   channels:
     swiftmailer:
       from_addr: no-reply@acme.org

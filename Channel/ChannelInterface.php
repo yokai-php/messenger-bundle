@@ -1,8 +1,8 @@
 <?php
 
-namespace MessengerBundle\Channel;
+namespace Yokai\MessengerBundle\Channel;
 
-use MessengerBundle\Delivery;
+use Yokai\MessengerBundle\Delivery;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

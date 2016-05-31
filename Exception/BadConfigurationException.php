@@ -1,6 +1,6 @@
 <?php
 
-namespace MessengerBundle\Exception;
+namespace Yokai\MessengerBundle\Exception;
 
 use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace MessengerBundle;
+namespace Yokai\MessengerBundle;
 
-use MessengerBundle\DependencyInjection\CompilerPass\ConfigureSenderCompilerPass;
-use MessengerBundle\DependencyInjection\MessengerExtension;
+use Yokai\MessengerBundle\DependencyInjection\CompilerPass\ConfigureSenderCompilerPass;
+use Yokai\MessengerBundle\DependencyInjection\YokaiMessengerExtension;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -11,14 +11,14 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
  */
-class MessengerBundle extends Bundle
+class YokaiMessengerBundle extends Bundle
 {
     /**
      * {@inheritdoc}
      */
     public function getContainerExtension()
     {
-        return new MessengerExtension('messenger');
+        return new YokaiMessengerExtension('yokai_messenger');
     }
 
     /**

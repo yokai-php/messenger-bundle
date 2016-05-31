@@ -1,8 +1,8 @@
 <?php
 
-namespace MessengerBundle\Helper;
+namespace Yokai\MessengerBundle\Helper;
 
-use MessengerBundle\Exception\BadMethodCallException;
+use Yokai\MessengerBundle\Exception\BadMethodCallException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;

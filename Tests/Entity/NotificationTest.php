@@ -1,9 +1,9 @@
 <?php
 
-namespace MessengerBundle\Tests\Entity;
+namespace Yokai\MessengerBundle\Tests\Entity;
 
-use MessengerBundle\Entity\Notification;
-use MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
+use Yokai\MessengerBundle\Entity\Notification;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>

@@ -1,8 +1,8 @@
 <?php
 
-namespace MessengerBundle\Tests\Fixtures\Recipient;
+namespace Yokai\MessengerBundle\Tests\Fixtures\Recipient;
 
-use MessengerBundle\Recipient\DoctrineRecipientInterface;
+use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>

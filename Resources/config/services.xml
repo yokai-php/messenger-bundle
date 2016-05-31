@@ -6,18 +6,18 @@
 
     <services>
 
-        <service id="messenger.sender" class="MessengerBundle\Sender\DefaultSender">
-            <argument type="service" id="messenger.content_builder"/>
+        <service id="yokai_messenger.sender" class="Yokai\MessengerBundle\Sender\DefaultSender">
+            <argument type="service" id="yokai_messenger.content_builder"/>
             <argument>%kernel.debug%</argument>
             <argument type="service" id="logger"/>
 
-            <tag name="logger" channel="%messenger.logging_channel%"/>
+            <tag name="logger" channel="%yokai_messenger.logging_channel%"/>
         </service>
 
-        <service id="messenger.content_builder" class="MessengerBundle\Helper\ContentBuilder" public="false">
+        <service id="yokai_messenger.content_builder" class="Yokai\MessengerBundle\Helper\ContentBuilder" public="false">
             <argument type="service" id="templating"/>
             <argument type="service" id="translator"/>
-            <argument>%messenger.content_builder_defaults%</argument>
+            <argument>%yokai_messenger.content_builder_defaults%</argument>
         </service>
 
     </services>

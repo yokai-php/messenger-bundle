@@ -1,7 +1,7 @@
 <?php
 
 
-namespace MessengerBundle\Tests\Fixtures;
+namespace Yokai\MessengerBundle\Tests\Fixtures;
 
 use Symfony\Component\OptionsResolver\Exception\ExceptionInterface;
 

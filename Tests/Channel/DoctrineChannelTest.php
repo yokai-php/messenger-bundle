@@ -1,14 +1,14 @@
 <?php
 
-namespace MessengerBundle\Tests\Channel;
+namespace Yokai\MessengerBundle\Tests\Channel;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use MessengerBundle\Channel\DoctrineChannel;
-use MessengerBundle\Delivery;
-use MessengerBundle\Entity\Notification;
-use MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
-use MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
+use Yokai\MessengerBundle\Channel\DoctrineChannel;
+use Yokai\MessengerBundle\Delivery;
+use Yokai\MessengerBundle\Entity\Notification;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\OptionsResolver\OptionsResolver;

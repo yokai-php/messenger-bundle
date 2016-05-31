@@ -1,6 +1,6 @@
 <?php
 
-namespace MessengerBundle\DependencyInjection;
+namespace Yokai\MessengerBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;

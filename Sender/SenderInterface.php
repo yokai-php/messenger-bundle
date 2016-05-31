@@ -1,6 +1,6 @@
 <?php
 
-namespace MessengerBundle\Sender;
+namespace Yokai\MessengerBundle\Sender;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
