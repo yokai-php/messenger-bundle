@@ -27,7 +27,7 @@ class DoctrineChannel implements ChannelInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supports($recipient)
     {
@@ -39,14 +39,14 @@ class DoctrineChannel implements ChannelInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function configure(OptionsResolver $resolver)
     {
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function handle(Delivery $delivery)
     {

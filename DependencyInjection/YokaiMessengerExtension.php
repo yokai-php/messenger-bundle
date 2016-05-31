@@ -26,7 +26,7 @@ class YokaiMessengerExtension extends Extension
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -60,7 +60,7 @@ class YokaiMessengerExtension extends Extension
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
@@ -68,7 +68,7 @@ class YokaiMessengerExtension extends Extension
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getAlias()
     {

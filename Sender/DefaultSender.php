@@ -105,7 +105,7 @@ class DefaultSender implements SenderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function send($message, $recipient, array $parameters = [])
     {

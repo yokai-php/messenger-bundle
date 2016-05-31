@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 class YokaiMessengerBundle extends Bundle
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getContainerExtension()
     {
@@ -22,7 +22,7 @@ class YokaiMessengerBundle extends Bundle
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function registerCommands(Application $application)
     {
@@ -30,7 +30,7 @@ class YokaiMessengerBundle extends Bundle
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function build(ContainerBuilder $container)
     {
