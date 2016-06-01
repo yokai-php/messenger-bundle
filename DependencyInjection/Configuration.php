@@ -17,11 +17,17 @@ class Configuration implements ConfigurationInterface
     private $name;
 
     /**
+     * @var TreeBuilder
+     */
+    private $builder;
+
+    /**
      * @param string $name
      */
     public function __construct($name)
     {
         $this->name = $name;
+        $this->builder = new TreeBuilder();
     }
 
     /**
@@ -29,21 +35,15 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder();
+        $builder = $this->getBuilder();
         $root = $builder->root($this->name);
 
         $root
             ->addDefaultsIfNotSet()
             ->children()
-                ->scalarNode('logging_channel')->defaultValue('main')->end()
-                ->append($this->createContentBuilderNode())
-                ->arrayNode('channels')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->append($this->createSwiftmailerChannelNode())
-                        ->append($this->createDoctrineChannelNode())
-                    ->end()
-                ->end()
+                ->scalarNode('logging_channel')->defaultValue('app')->end()
+                ->append($this->getContentBuilderNode())
+                ->append($this->getChannelsNode())
             ->end()
         ;
 
@@ -51,14 +51,39 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * @return TreeBuilder
+     */
+    private function getBuilder()
+    {
+        return clone $this->builder;
+    }
+
+    /**
      * @return NodeDefinition
      */
-    private function createSwiftmailerChannelNode()
+    private function getChannelsNode()
     {
-        $builder = new TreeBuilder();
-        $swiftmailer = $builder->root('swiftmailer');
+        $node = $this->getBuilder()->root('channels');
 
-        $swiftmailer
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->append($this->getSwiftmailerChannelNode())
+                ->append($this->getDoctrineChannelNode())
+            ->end()
+        ;
+
+        return $node;
+    }
+
+    /**
+     * @return NodeDefinition
+     */
+    private function getSwiftmailerChannelNode()
+    {
+        $node = $this->getBuilder()->root('swiftmailer');
+
+        $node
             ->canBeEnabled()
             ->validate()
                 ->ifTrue(function ($value) {
@@ -81,42 +106,40 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
-        return $swiftmailer;
+        return $node;
     }
 
     /**
      * @return NodeDefinition
      */
-    private function createDoctrineChannelNode()
+    private function getDoctrineChannelNode()
     {
-        $builder = new TreeBuilder();
-        $doctrine = $builder->root('doctrine');
+        $node = $this->getBuilder()->root('doctrine');
 
-        $doctrine
+        $node
             ->canBeEnabled()
             ->children()
                 ->scalarNode('manager')->defaultValue('default')->end()
             ->end()
         ;
 
-        return $doctrine;
+        return $node;
     }
 
     /**
      * @return NodeDefinition
      */
-    private function createContentBuilderNode()
+    private function getContentBuilderNode()
     {
-        $builder = new TreeBuilder();
-        $contentBuilder = $builder->root('content_builder');
+        $node = $this->getBuilder()->root('content_builder');
 
-        $contentBuilder
+        $node
             ->defaultValue([])
             ->useAttributeAsKey('name')
             ->prototype('variable')
             ->end()
         ;
 
-        return $contentBuilder;
+        return $node;
     }
 }

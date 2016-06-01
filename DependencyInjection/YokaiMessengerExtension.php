@@ -47,14 +47,13 @@ class YokaiMessengerExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
-        if (class_exists('Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle') &&
-            $config['channels']['swiftmailer']['enabled']
-        ) {
+        $swiftmailerEnabled = $config['channels']['swiftmailer']['enabled'];
+        $doctrineEnabled = $config['channels']['doctrine']['enabled'];
+
+        if (class_exists('Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle') && $swiftmailerEnabled) {
             $this->registerSwiftmailer($config['channels']['swiftmailer'], $container, $loader);
         }
-        if (class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle') &&
-            $config['channels']['doctrine']['enabled']
-        ) {
+        if (class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle') && $doctrineEnabled) {
             $this->registerDoctrine($config['channels']['doctrine'], $container, $loader);
         }
     }
