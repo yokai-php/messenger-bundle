@@ -2,6 +2,9 @@
 
 namespace Yokai\MessengerBundle\Channel;
 
+use Swift_Mailer;
+use Swift_Message;
+use Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\SwiftMessageConfiguratorInterface;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,9 +15,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SwiftmailerChannel implements ChannelInterface
 {
     /**
-     * @var \Swift_Mailer
+     * @var Swift_Mailer
      */
     private $mailer;
+
+    /**
+     * @var SwiftMessageConfiguratorInterface
+     */
+    private $configurator;
 
     /**
      * @var array
@@ -22,12 +30,17 @@ class SwiftmailerChannel implements ChannelInterface
     private $defaults;
 
     /**
-     * @param \Swift_Mailer $mailer
-     * @param array         $defaults
+     * @param Swift_Mailer                      $mailer
+     * @param SwiftMessageConfiguratorInterface $configurator
+     * @param array                             $defaults
      */
-    public function __construct(\Swift_Mailer $mailer, array $defaults)
-    {
+    public function __construct(
+        Swift_Mailer $mailer,
+        SwiftMessageConfiguratorInterface $configurator,
+        array $defaults
+    ) {
         $this->mailer = $mailer;
+        $this->configurator = $configurator;
         $this->defaults = $defaults;
     }
 
@@ -68,17 +81,9 @@ class SwiftmailerChannel implements ChannelInterface
      */
     public function handle(Delivery $delivery)
     {
-        $recipient = $delivery->getRecipient();
+        $mail = Swift_Message::newInstance();
 
-        $options = $delivery->getOptions();
-
-        $mail = \Swift_Message::newInstance();
-        $mail
-            ->setSubject($delivery->getSubject())
-            ->setFrom($options['from'])
-            ->setTo($recipient instanceof SwiftmailerRecipientInterface ? $recipient->getEmail() : $recipient)
-            ->setBody($delivery->getBody(), 'text/html')
-        ;
+        $this->configurator->configure($mail, $delivery);
 
         $this->mailer->send($mail);
     }

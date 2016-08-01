@@ -50,6 +50,9 @@ class YokaiMessengerExtension extends Extension
         $swiftmailerEnabled = $config['channels']['swiftmailer']['enabled'];
         $doctrineEnabled = $config['channels']['doctrine']['enabled'];
 
+        $container->setParameter('yokai_messenger.swiftmailer_enabled', $swiftmailerEnabled);
+        $container->setParameter('yokai_messenger.doctrine_enabled', $doctrineEnabled);
+
         if (class_exists('Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle') && $swiftmailerEnabled) {
             $this->registerSwiftmailer($config['channels']['swiftmailer'], $container, $loader);
         }

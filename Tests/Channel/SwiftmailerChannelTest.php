@@ -2,6 +2,7 @@
 
 namespace Yokai\MessengerBundle\Tests\Channel;
 
+use Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\SwiftMessageConfiguratorInterface;
 use Yokai\MessengerBundle\Channel\SwiftmailerChannel;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
@@ -20,15 +21,22 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
      */
     private $mailer;
 
+    /**
+     * @var ObjectProphecy
+     */
+    private $configurator;
+
     protected function setUp()
     {
         $this->mailer = $this->prophesize(\Swift_Mailer::class);
+        $this->configurator = $this->prophesize(SwiftMessageConfiguratorInterface::class);
     }
 
     protected function tearDown()
     {
         unset(
-            $this->mailer
+            $this->mailer,
+            $this->configurator
         );
     }
 
@@ -36,6 +44,7 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
     {
         return new SwiftmailerChannel(
             $this->mailer->reveal(),
+            $this->configurator->reveal(),
             $defaults
         );
     }
@@ -65,7 +74,51 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
 
     public function testIsSendingEmail()
     {
-        $recipient = new SwiftmailerRecipient('john.doe@test.test');
+        $delivery1 = new Delivery(
+            'test',
+            new SwiftmailerRecipient('john.doe@test.test'),
+            [
+                'from' => 'no-reply@test.test'
+            ],
+            'subject',
+            'body',
+            [
+            ]
+        );
+
+        $delivery2 = new Delivery(
+            'test',
+            'john.doe@test.test',
+            [
+                'from' => 'no-reply@test.test'
+            ],
+            'subject',
+            'body',
+            [
+            ]
+        );
+
+        $this->configurator->configure(Argument::type(\Swift_Message::class), $delivery1)
+            ->shouldBeCalled()
+            ->will(function ($args) {
+                /** @var \Swift_Message $message */
+                $message = $args[0];
+                $message->setSubject('subject');
+                $message->setBody('body');
+                $message->setFrom('no-reply@test.test');
+                $message->setTo('john.doe@test.test');
+            });
+
+        $this->configurator->configure(Argument::type(\Swift_Message::class), $delivery2)
+            ->shouldBeCalled()
+            ->will(function ($args) {
+                /** @var \Swift_Message $message */
+                $message = $args[0];
+                $message->setSubject('subject');
+                $message->setBody('body');
+                $message->setFrom('no-reply@test.test');
+                $message->setTo('john.doe@test.test');
+            });
 
         $messageProphecy = Argument::allOf(
             Argument::type(\Swift_Message::class),
@@ -80,33 +133,8 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
 
         $channel = $this->createChannel([]);
 
-        $channel->handle(
-            new Delivery(
-                'test',
-                $recipient,
-                [
-                    'from' => 'no-reply@test.test'
-                ],
-                'subject',
-                'body',
-                [
-                ]
-            )
-        );
-
-        $channel->handle(
-            new Delivery(
-                'test',
-                'john.doe@test.test',
-                [
-                    'from' => 'no-reply@test.test'
-                ],
-                'subject',
-                'body',
-                [
-                ]
-            )
-        );
+        $channel->handle($delivery1);
+        $channel->handle($delivery2);
     }
 
     public function supportsRecipientProvider()

@@ -3,6 +3,7 @@
 namespace Yokai\MessengerBundle;
 
 use Yokai\MessengerBundle\DependencyInjection\CompilerPass\ConfigureSenderCompilerPass;
+use Yokai\MessengerBundle\DependencyInjection\CompilerPass\RegisterSwiftmailerConfiguratorCompilerPass;
 use Yokai\MessengerBundle\DependencyInjection\YokaiMessengerExtension;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -36,6 +37,7 @@ class YokaiMessengerBundle extends Bundle
     {
         $container
             ->addCompilerPass(new ConfigureSenderCompilerPass())
+            ->addCompilerPass(new RegisterSwiftmailerConfiguratorCompilerPass())
         ;
     }
 }

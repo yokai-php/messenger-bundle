@@ -8,9 +8,20 @@
 
         <service id="yokai_messenger.swiftmailer_channel" class="Yokai\MessengerBundle\Channel\SwiftmailerChannel">
             <argument type="service" id="mailer"/>
+            <argument type="service" id="yokai_messenger.swiftmailer_chain_message_configurator"/>
             <argument>%yokai_messenger.swiftmailer_channel_defaults%</argument>
 
             <tag name="yokai_messenger.channel" alias="swiftmailer"/>
+        </service>
+
+        <service id="yokai_messenger.swiftmailer_chain_message_configurator"
+                 class="Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\ChainMessageConfigurator">
+            <argument/><!-- to be replaced by tagged services in compiler pass -->
+        </service>
+
+        <service id="yokai_messenger.swiftmailer_default_message_configurator"
+                 class="Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\DefaultMessageConfigurator">
+            <tag name="yokai_messenger.swiftmailer_message_configurator"/>
         </service>
 
     </services>

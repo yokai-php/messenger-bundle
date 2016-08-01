@@ -10,7 +10,8 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "symfony/symfony": "~2.7|~3.0"
+        "symfony/symfony": "~2.7|~3.0",
+        "yokai/dependency-injection": "~1.0"
     },
     "suggest": {
         "doctrine/orm": "Required to use the Doctrine channel that allow storing message in database",
