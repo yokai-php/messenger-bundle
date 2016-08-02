@@ -83,6 +83,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->append($this->getSwiftmailerChannelNode())
                 ->append($this->getDoctrineChannelNode())
+                ->append($this->getMobileChannelNode())
             ->end()
         ;
 
@@ -118,7 +119,8 @@ class Configuration implements ConfigurationInterface
                         ->useAttributeAsKey('channel')
                         ->prototype('variable')
                             ->validate()
-                                ->ifTrue($this->isNotHash())->thenInvalid('Expected a hash for channel options, got %s.')
+                                ->ifTrue($this->isNotHash())
+                                    ->thenInvalid('Expected a hash for channel options, got %s.')
                             ->end()
                         ->end()
                     ->end()
@@ -139,17 +141,8 @@ class Configuration implements ConfigurationInterface
         $node
             ->canBeEnabled()
             ->validate()
-                ->ifTrue(function ($value) {
-                    if (!$value['enabled']) {
-                        return false;
-                    }
-                    if (isset($value['from_addr']) & !empty($value['from_addr'])) {
-                        return false;
-                    }
-
-                    return true;
-                })
-                ->thenInvalid('The child node "from_addr" at path "messenger.channels.swiftmailer" must be configured.')
+                ->ifTrue($this->nodeRequiredIfEnabled('from_addr'))
+                    ->thenInvalid($this->nodeMustBeConfigured('from_addr', 'channels.swiftmailer'))
             ->end()
             ->children()
                 ->scalarNode('from_addr')
@@ -173,6 +166,46 @@ class Configuration implements ConfigurationInterface
             ->canBeEnabled()
             ->children()
                 ->scalarNode('manager')->defaultValue('default')->end()
+            ->end()
+        ;
+
+        return $node;
+    }
+
+    /**
+     * @return NodeDefinition
+     */
+    private function getMobileChannelNode()
+    {
+        $node = $this->root('mobile');
+
+        $node
+            ->canBeEnabled()
+            ->children()
+                ->scalarNode('environment')->defaultValue('dev')->end()
+                ->arrayNode('apns')
+                    ->canBeDisabled()
+                    ->validate()
+                        ->ifTrue($this->nodeRequiredIfEnabled('certificate'))
+                            ->thenInvalid($this->nodeMustBeConfigured('certificate', 'channels.mobile.apns'))
+                        ->ifTrue($this->nodeRequiredIfEnabled('certificate'))
+                            ->thenInvalid($this->nodeMustBeConfigured('pass_phrase', 'channels.mobile.apns'))
+                    ->end()
+                    ->children()
+                        ->scalarNode('certificate')->defaultNull()->end()
+                        ->scalarNode('pass_phrase')->defaultNull()->end()
+                    ->end()
+                ->end()
+                ->arrayNode('gcm')
+                    ->canBeDisabled()
+                    ->validate()
+                        ->ifTrue($this->nodeRequiredIfEnabled('api_key'))
+                            ->thenInvalid($this->nodeMustBeConfigured('api_key', 'channels.mobile.gcm'))
+                    ->end()
+                    ->children()
+                        ->scalarNode('api_key')->defaultNull()->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 
@@ -222,5 +255,41 @@ class Configuration implements ConfigurationInterface
 
             return false;
         };
+    }
+
+    /**
+     * @param string $node
+     *
+     * @return \Closure
+     */
+    private function nodeRequiredIfEnabled($node)
+    {
+        return function ($value) use ($node) {
+            if (!$value['enabled']) {
+                return false;
+            }
+
+            if (isset($value[$node]) && !empty($value[$node])) {
+                return false;
+            }
+
+            return true;
+        };
+    }
+
+    /**
+     * @param string $node
+     * @param string $path
+     *
+     * @return string
+     */
+    private function nodeMustBeConfigured($node, $path)
+    {
+        return sprintf(
+            'The child node "%s" at path "%s.%s" must be configured.',
+            $node,
+            $this->name,
+            $path
+        );
     }
 }

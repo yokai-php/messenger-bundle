@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="yokai_messenger.mobile_channel" class="Yokai\MessengerBundle\Channel\MobileChannel">
+            <argument type="service" id="yokai_messenger.mobile.push_manager"/>
+            <argument type="collection"/><!-- will be registered using compiler pass -->
+
+            <tag name="yokai_messenger.channel" alias="mobile"/>
+        </service>
+
+        <service id="yokai_messenger.mobile.push_manager" class="Sly\NotificationPusher\PushManager" public="false">
+            <argument>%yokai_messenger.mobile.push_manager.environment%</argument>
+        </service>
+
+    </services>
+
+</container>

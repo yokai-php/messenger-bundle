@@ -48,17 +48,25 @@ class YokaiMessengerExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
-        $swiftmailerEnabled = $config['channels']['swiftmailer']['enabled'];
-        $doctrineEnabled = $config['channels']['doctrine']['enabled'];
+        $swiftmailerEnabled = $config['channels']['swiftmailer']['enabled'] &&
+                              class_exists('Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle');
+        $doctrineEnabled = $config['channels']['doctrine']['enabled'] &&
+                           class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle');
+        $mobileEnabled = $config['channels']['mobile']['enabled'] &&
+                         class_exists('Sly\NotificationPusher\NotificationPusher');
 
         $container->setParameter('yokai_messenger.swiftmailer_enabled', $swiftmailerEnabled);
         $container->setParameter('yokai_messenger.doctrine_enabled', $doctrineEnabled);
+        $container->setParameter('yokai_messenger.mobile_enabled', $mobileEnabled);
 
-        if (class_exists('Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle') && $swiftmailerEnabled) {
+        if ($swiftmailerEnabled) {
             $this->registerSwiftmailer($config['channels']['swiftmailer'], $container, $loader);
         }
-        if (class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle') && $doctrineEnabled) {
+        if ($doctrineEnabled) {
             $this->registerDoctrine($config['channels']['doctrine'], $container, $loader);
+        }
+        if ($mobileEnabled) {
+            $this->registerMobile($config['channels']['mobile'], $container, $loader);
         }
 
         $this->registerMessages($config['messages'], $container);
@@ -112,6 +120,35 @@ class YokaiMessengerExtension extends Extension
             )
         );
         $loader->load('doctrine.xml');
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
+    private function registerMobile(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        $apnsEnabled = $config['apns']['enabled'] && class_exists('Sly\NotificationPusher\Adapter\Apns');
+        $gcmEnabled = $config['gcm']['enabled'] && class_exists('Sly\NotificationPusher\Adapter\Gcm');
+
+        if (!$apnsEnabled && !$gcmEnabled) {
+            return;
+        }
+
+        $container->setParameter('yokai_messenger.mobile.push_manager.environment', $config['environment']);
+
+        $loader->load('mobile.xml');
+
+        if ($apnsEnabled) {
+            $loader->load('mobile/apns.xml');
+            $container->setParameter('yokai_messenger.mobile.apns_adapter.certificate', $config['apns']['certificate']);
+            $container->setParameter('yokai_messenger.mobile.apns_adapter.pass_phrase', $config['apns']['pass_phrase']);
+        }
+        if ($gcmEnabled) {
+            $loader->load('mobile/gcm.xml');
+            $container->setParameter('yokai_messenger.mobile.gcm_adapter.api_key', $config['gcm']['api_key']);
+        }
     }
 
     /**

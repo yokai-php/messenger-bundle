@@ -7,6 +7,12 @@ yokai_messenger:
       translator_catalog: messaging
     doctrine:
       enabled: true
+    mobile:
+      apns:
+        certificate: /path/to/your/apns-certificate.pem
+        pass_phrase: example
+      gcm:
+        api_key:     YourApiKey
   messages:
     foo:
       id: foo
@@ -16,4 +22,4 @@ yokai_messenger:
       channels: doctrine
     baz:
       id: baz
-      channels: [swiftmailer, doctrine]
+      channels: [swiftmailer, doctrine, mobile]

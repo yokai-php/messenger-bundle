@@ -212,22 +212,27 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
             $sets[] = [
                 'swiftmailer_only.' . $format,
                 ['swiftmailer'],
-                ['doctrine'],
+                ['doctrine', 'mobile'],
             ];
             $sets[] = [
                 'doctrine_only.' . $format,
                 ['doctrine'],
-                ['swiftmailer'],
+                ['swiftmailer', 'mobile'],
+            ];
+            $sets[] = [
+                'mobile_only.' . $format,
+                ['mobile'],
+                ['swiftmailer', 'doctrine'],
             ];
             $sets[] = [
                 'all.' . $format,
-                ['doctrine', 'swiftmailer'],
+                ['doctrine', 'swiftmailer', 'mobile'],
                 [],
             ];
             $sets[] = [
                 'none.' . $format,
                 [],
-                ['doctrine', 'swiftmailer'],
+                ['doctrine', 'swiftmailer', 'mobile'],
             ];
         }
 
@@ -251,7 +256,7 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
         );
         $calls = array_values($calls);
 
-        $this->assertCount(4, $calls);
+        $this->assertCount(5, $calls);
 
         $this->assertInstanceOf(Definition::class, $calls[0][1][0]);
         $this->assertSame('foo', $calls[0][1][0]->getArgument(0));
@@ -268,6 +273,10 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Definition::class, $calls[3][1][0]);
         $this->assertSame('baz', $calls[3][1][0]->getArgument(0));
         $this->assertSame('doctrine', $calls[3][1][1]);
+
+        $this->assertInstanceOf(Definition::class, $calls[4][1][0]);
+        $this->assertSame('baz', $calls[4][1][0]->getArgument(0));
+        $this->assertSame('mobile', $calls[4][1][1]);
     }
 
     public function formatProvider()
