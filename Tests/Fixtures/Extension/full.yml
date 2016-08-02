@@ -1,0 +1,19 @@
+
+yokai_messenger:
+  channels:
+    swiftmailer:
+      enabled: true
+      from_addr: no-reply@acme.org
+      translator_catalog: messaging
+    doctrine:
+      enabled: true
+  messages:
+    foo:
+      id: foo
+      channels: swiftmailer
+    bar:
+      id: bar
+      channels: doctrine
+    baz:
+      id: baz
+      channels: [swiftmailer, doctrine]

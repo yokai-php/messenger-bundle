@@ -207,7 +207,8 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
     public function configurationProvider()
     {
         $sets = [];
-        foreach (['yml'] as $format) {
+        foreach ($this->formatProvider() as $format) {
+            $format = $format[0];
             $sets[] = [
                 'swiftmailer_only.' . $format,
                 ['swiftmailer'],
@@ -231,5 +232,48 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
         }
 
         return $sets;
+    }
+
+    /**
+     * @dataProvider formatProvider
+     */
+    public function testMessagesLoadedWithConfiguration($format)
+    {
+        $this->loadConfiguration($this->container, 'full.' . $format);
+        $this->container->compile();
+
+        $calls = $this->container->getDefinition('yokai_messenger.sender')->getMethodCalls();
+        $calls = array_filter(
+            $calls,
+            function ($call) {
+                return $call[0] === 'addMessage';
+            }
+        );
+        $calls = array_values($calls);
+
+        $this->assertCount(4, $calls);
+
+        $this->assertInstanceOf(Definition::class, $calls[0][1][0]);
+        $this->assertSame('foo', $calls[0][1][0]->getArgument(0));
+        $this->assertSame('swiftmailer', $calls[0][1][1]);
+
+        $this->assertInstanceOf(Definition::class, $calls[1][1][0]);
+        $this->assertSame('bar', $calls[1][1][0]->getArgument(0));
+        $this->assertSame('doctrine', $calls[1][1][1]);
+
+        $this->assertInstanceOf(Definition::class, $calls[2][1][0]);
+        $this->assertSame('baz', $calls[2][1][0]->getArgument(0));
+        $this->assertSame('swiftmailer', $calls[2][1][1]);
+
+        $this->assertInstanceOf(Definition::class, $calls[3][1][0]);
+        $this->assertSame('baz', $calls[3][1][0]->getArgument(0));
+        $this->assertSame('doctrine', $calls[3][1][1]);
+    }
+
+    public function formatProvider()
+    {
+        return [
+            ['yml']
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Yokai\MessengerBundle\DependencyInjection\CompilerPass;
 
+use InvalidArgumentException;
 use Yokai\MessengerBundle\Channel\ChannelInterface;
 use Yokai\MessengerBundle\Message;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -36,19 +37,14 @@ class ConfigureSenderCompilerPass implements CompilerPassInterface
     private function registerChannels(Definition $definition, ContainerBuilder $container)
     {
         foreach ($container->findTaggedServiceIds('yokai_messenger.channel') as $id => $config) {
-            $refClass = new \ReflectionClass($container->getDefinition($id)->getClass());
-            if (!$refClass->implementsInterface(ChannelInterface::class)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'Service "%s" must implement interface "%s".',
-                        $id,
-                        ChannelInterface::class
-                    )
+            if (!is_a($container->getDefinition($id)->getClass(), ChannelInterface::class, true)) {
+                throw new InvalidArgumentException(
+                    sprintf('Service "%s" must implement interface "%s".', $id, ChannelInterface::class)
                 );
             }
 
             if (!isset($config[0]['alias'])) {
-                throw new \InvalidArgumentException(
+                throw new InvalidArgumentException(
                     sprintf(
                         'Service "%s" must define the "alias" attribute on "messenger.channel" tags.',
                         $id
@@ -61,7 +57,7 @@ class ConfigureSenderCompilerPass implements CompilerPassInterface
                 [
                     new Reference($id),
                     $config[0]['alias'],
-                    isset($config[0]['priority']) ? $config[0]['priority'] : 1
+                    isset($config[0]['priority']) ? $config[0]['priority'] : 1,
                 ]
             );
         }
@@ -75,18 +71,16 @@ class ConfigureSenderCompilerPass implements CompilerPassInterface
     {
         foreach ($container->findTaggedServiceIds('yokai_messenger.message') as $id => $config) {
             if (Message::class !== $container->getDefinition($id)->getClass()) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'Service "%s" must be a "%s".',
-                        $id,
-                        Message::class
-                    )
+                throw new InvalidArgumentException(
+                    sprintf('Service "%s" must be a "%s".', $id, Message::class)
                 );
             }
 
+            $messageReference = new Reference($id);
+
             foreach ($config as $attributes) {
                 if (!isset($attributes['channel'])) {
-                    throw new \InvalidArgumentException(
+                    throw new InvalidArgumentException(
                         sprintf(
                             'Service "%s" must define the "channel" attribute on "messenger.message" tags.',
                             $id
@@ -94,13 +88,7 @@ class ConfigureSenderCompilerPass implements CompilerPassInterface
                     );
                 }
 
-                $definition->addMethodCall(
-                    'addMessage',
-                    [
-                        new Reference($id),
-                        $attributes['channel']
-                    ]
-                );
+                $definition->addMethodCall('addMessage', [$messageReference, $attributes['channel']]);
             }
         }
     }

@@ -2,6 +2,7 @@
 
 namespace Yokai\MessengerBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -40,10 +41,12 @@ class Configuration implements ConfigurationInterface
 
         $root
             ->addDefaultsIfNotSet()
+            ->fixXmlConfig('message')
             ->children()
                 ->scalarNode('logging_channel')->defaultValue('app')->end()
                 ->append($this->getContentBuilderNode())
                 ->append($this->getChannelsNode())
+                ->append($this->getMessagesNode())
             ->end()
         ;
 
@@ -59,11 +62,21 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * @param string $name
+     *
+     * @return ArrayNodeDefinition
+     */
+    private function root($name)
+    {
+        return $this->getBuilder()->root($name);
+    }
+
+    /**
      * @return NodeDefinition
      */
     private function getChannelsNode()
     {
-        $node = $this->getBuilder()->root('channels');
+        $node = $this->root('channels');
 
         $node
             ->addDefaultsIfNotSet()
@@ -79,9 +92,49 @@ class Configuration implements ConfigurationInterface
     /**
      * @return NodeDefinition
      */
+    private function getMessagesNode()
+    {
+        $node = $this->root('messages');
+
+        $node
+            ->defaultValue([])
+            ->prototype('array')
+                ->fixXmlConfig('channel')
+                ->children()
+                    ->scalarNode('id')->isRequired()->end()
+                    ->arrayNode('channels')
+                        ->beforeNormalization()
+                            ->ifString()->then($this->stringToArray())
+                        ->end()
+                        ->requiresAtLeastOneElement()
+                        ->prototype('scalar')->end()
+                    ->end()
+                    ->arrayNode('defaults')
+                        ->defaultValue([])
+                        ->prototype('variable')->end()
+                    ->end()
+                    ->arrayNode('options')
+                        ->defaultValue([])
+                        ->useAttributeAsKey('channel')
+                        ->prototype('variable')
+                            ->validate()
+                                ->ifTrue($this->isNotHash())->thenInvalid('Expected a hash for channel options, got %s.')
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
+        return $node;
+    }
+
+    /**
+     * @return NodeDefinition
+     */
     private function getSwiftmailerChannelNode()
     {
-        $node = $this->getBuilder()->root('swiftmailer');
+        $node = $this->root('swiftmailer');
 
         $node
             ->canBeEnabled()
@@ -114,7 +167,7 @@ class Configuration implements ConfigurationInterface
      */
     private function getDoctrineChannelNode()
     {
-        $node = $this->getBuilder()->root('doctrine');
+        $node = $this->root('doctrine');
 
         $node
             ->canBeEnabled()
@@ -131,7 +184,7 @@ class Configuration implements ConfigurationInterface
      */
     private function getContentBuilderNode()
     {
-        $node = $this->getBuilder()->root('content_builder');
+        $node = $this->root('content_builder');
 
         $node
             ->defaultValue([])
@@ -141,5 +194,33 @@ class Configuration implements ConfigurationInterface
         ;
 
         return $node;
+    }
+
+    /**
+     * @return \Closure
+     */
+    private function stringToArray()
+    {
+        return function ($value) {
+            return [$value];
+        };
+    }
+
+    /**
+     * @return \Closure
+     */
+    private function isNotHash()
+    {
+        return function ($value) {
+            if (!is_array($value)) {
+                return true;
+            }
+
+            if (array_values($value) === $value) {
+                return true;
+            }
+
+            return false;
+        };
     }
 }

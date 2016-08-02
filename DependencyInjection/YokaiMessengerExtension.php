@@ -6,6 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Yokai\MessengerBundle\DependencyInjection\Factory\MessageDefinitionFactory;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
@@ -59,6 +60,8 @@ class YokaiMessengerExtension extends Extension
         if (class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle') && $doctrineEnabled) {
             $this->registerDoctrine($config['channels']['doctrine'], $container, $loader);
         }
+
+        $this->registerMessages($config['messages'], $container);
     }
 
     /**
@@ -109,5 +112,22 @@ class YokaiMessengerExtension extends Extension
             )
         );
         $loader->load('doctrine.xml');
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
+    private function registerMessages(array $config, ContainerBuilder $container)
+    {
+        foreach ($config as $messageConfig) {
+            MessageDefinitionFactory::create(
+                $container,
+                $messageConfig['id'],
+                $messageConfig['channels'],
+                $messageConfig['defaults'],
+                $messageConfig['options']
+            );
+        }
     }
 }
