@@ -16,12 +16,14 @@
     "suggest": {
         "doctrine/orm": "Required to use the Doctrine channel that allow storing message in database",
         "doctrine/doctrine-bundle": "Required to use the Doctrine channel that allow storing message in database",
-        "symfony/swiftmailer-bundle": "Required to use the Doctrine channel that allow sending message via email"
+        "symfony/swiftmailer-bundle": "Required to use the Doctrine channel that allow sending message via email",
+        "sly/notification-pusher": "Required to use the Mobile channel that allow sending message via mobile notification"
     },
     "require-dev": {
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
         "symfony/swiftmailer-bundle": "~2.3",
+        "sly/notification-pusher": "~2.2",
         "phpunit/phpunit": "~4.6"
     },
     "autoload": {

@@ -8,6 +8,7 @@ use Yokai\MessengerBundle\Channel\DoctrineChannel;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Entity\Notification;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -106,6 +107,10 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
             [
                 new DoctrineRecipient(1),
                 true,
+            ],
+            [
+                new MobileRecipient(['foo', 'bar']),
+                false,
             ],
         ];
     }

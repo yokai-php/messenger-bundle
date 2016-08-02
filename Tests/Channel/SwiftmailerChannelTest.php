@@ -6,6 +6,7 @@ use Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\SwiftMessageConfigura
 use Yokai\MessengerBundle\Channel\SwiftmailerChannel;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -155,6 +156,10 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
             [
                 'john.doe@acme.org',
                 true,
+            ],
+            [
+                new MobileRecipient(['foo', 'bar']),
+                false,
             ],
         ];
     }
