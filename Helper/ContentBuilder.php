@@ -115,7 +115,7 @@ class ContentBuilder
         }
 
         return $this->templating->render(
-            vsprintf(
+            strtr(
                 $this->options['template'],
                 array_intersect_key($parameters, array_flip($this->options['template_parameters']))
             ),

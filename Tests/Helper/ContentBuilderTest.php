@@ -206,7 +206,7 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 [
-                    'template' => ':hello:%s.txt.twig',
+                    'template' => ':hello:{greet}.txt.twig',
                     'template_parameters' => ['{greet}'],
                     'template_vars' => [
                         'date' => '2015-11-12',
