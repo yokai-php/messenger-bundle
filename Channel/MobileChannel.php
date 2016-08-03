@@ -26,6 +26,7 @@ class MobileChannel implements ChannelInterface
      * @var AdapterInterface[]
      */
     private $adapters;
+
     /**
      * @param PushManager        $pushManager
      * @param AdapterInterface[] $adapters
