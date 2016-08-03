@@ -99,8 +99,13 @@ public function registerBundles()
 
 ### Configuration
 
-Configuration depends on what you want to do with this bundle.
-First of all, we must discuss about this bundle principles.
+Please [read](Resources/docs/documentation.md) the dedicated documentation.
+
+
+Usage
+-----
+
+Please [read](Resources/docs/usage.md) the dedicated documentation.
 
 
 MIT License
