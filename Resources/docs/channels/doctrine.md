@@ -24,7 +24,7 @@ Configuration
 
 ``` yaml
 yokai_messenger:
-    doctrine:
+    channels:
         doctrine:
             enabled: true
             manager: default

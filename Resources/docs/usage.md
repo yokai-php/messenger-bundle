@@ -30,12 +30,14 @@ yokai_messenger:
 This will declare a message named `activity_report`, 
 that will be distributed over the `swiftmailer` & `doctrine` channels.
 
+Considering that `{group}` value is "default" & `{name}` value is "John" :
+
 - When distributed via the `swiftmailer` channel, 
-    the message subject will be **Please see your daily activity report**
-    and message body will be the result of the **messages/activity_report/swiftmailer.html.twig** interpretation.
+    the message subject will be **John - your daily activity report**
+    and message body will be the result of the **messages/activity_report/default/swiftmailer.html.twig** interpretation.
 
 - When distributed via the `doctrine` channel, 
-    the message subject will be **Your daily activity report**
+    the message subject will be **Please see your daily activity report**
     and message body will be the result of the **messages/activity_report/default.html.twig** interpretation.
 
 
