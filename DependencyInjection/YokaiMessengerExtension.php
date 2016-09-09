@@ -98,7 +98,7 @@ class YokaiMessengerExtension extends Extension
         $container->setParameter(
             'yokai_messenger.swiftmailer_channel_defaults',
             [
-                'from' => $config['from_addr'],
+                'from' => $config['from'],
                 'translator_catalog' => $config['translator_catalog'],
             ]
         );
