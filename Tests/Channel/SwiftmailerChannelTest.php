@@ -41,6 +41,10 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @param  array $defaults
+     * @return SwiftmailerChannel
+     */
     protected function createChannel(array $defaults)
     {
         return new SwiftmailerChannel(
@@ -131,6 +135,93 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
 
         $this->mailer->send($messageProphecy)
             ->shouldBeCalledTimes(2);
+
+        $channel = $this->createChannel([]);
+
+        $channel->handle($delivery1);
+        $channel->handle($delivery2);
+    }
+
+    public function testArrayFrom()
+    {
+        $delivery1 = new Delivery(
+            'test',
+            new SwiftmailerRecipient('john.doe@test.test'),
+            [
+                'from' => [
+                    'no-reply@test.test' => 'NoReply'
+                ]
+            ],
+            'subject',
+            'body',
+            [
+            ]
+        );
+
+        $delivery2 = new Delivery(
+            'test',
+            'john.doe@test.test',
+            [
+                'from' => [
+                    'no-reply@test.test'  => 'NoReply',
+                    'no-reply2@test.test' => 'NoReply2'
+                ]
+            ],
+            'subject',
+            'body',
+            [
+            ]
+        );
+
+        $this->configurator->configure(Argument::type(\Swift_Message::class), $delivery1)
+            ->shouldBeCalled()
+            ->will(function ($args) {
+                /** @var \Swift_Message $message */
+                $message = $args[0];
+                $message->setSubject('subject');
+                $message->setBody('body');
+                $message->setFrom(['no-reply@test.test' => 'NoReply']);
+                $message->setTo('john.doe@test.test');
+            });
+
+        $this->configurator->configure(Argument::type(\Swift_Message::class), $delivery2)
+            ->shouldBeCalled()
+            ->will(function ($args) {
+                /** @var \Swift_Message $message */
+                $message = $args[0];
+                $message->setSubject('subject');
+                $message->setBody('body');
+                $message->setFrom([
+                    'no-reply@test.test'  => 'NoReply',
+                    'no-reply2@test.test' => 'NoReply2'
+                ]);
+                $message->setTo('john.doe@test.test');
+            });
+
+        $messageProphecy1 = Argument::allOf(
+            Argument::type(\Swift_Message::class),
+            Argument::which('getSubject', 'subject'),
+            Argument::which('getBody', 'body'),
+            Argument::which('getFrom', ['no-reply@test.test'  => 'NoReply']),
+            Argument::which('getTo', ['john.doe@test.test' => null])
+        );
+
+        $messageProphecy2 = Argument::allOf(
+            Argument::type(\Swift_Message::class),
+            Argument::which('getSubject', 'subject'),
+            Argument::which('getBody', 'body'),
+            Argument::which('getFrom', [
+                'no-reply@test.test'  => 'NoReply',
+                'no-reply2@test.test' => 'NoReply2'
+            ]),
+            Argument::which('getTo', ['john.doe@test.test' => null])
+        );
+
+        $this->mailer->send($messageProphecy1)
+            ->shouldBeCalledTimes(1);
+
+        $this->mailer->send($messageProphecy2)
+            ->shouldBeCalledTimes(1);
 
         $channel = $this->createChannel([]);
 

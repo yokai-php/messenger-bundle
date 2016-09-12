@@ -27,7 +27,7 @@ yokai_messenger:
     channels:
         swiftmailer:
             enabled:            true
-            from_addr:          no-reply@acme.org
+            from:               no-reply@acme.org
             translator_catalog: notifications
 ```
 
@@ -39,6 +39,19 @@ yokai_messenger:
         -
             id:       <up to you>
             channels: swiftmailer # or [swiftmailer, <any other channels ...>]
+```
+
+### Messages overriding channel configuration
+
+``` yaml
+yokai_messenger:
+    messages:
+        -
+            id:       <up to you>
+            channels: swiftmailer # or [swiftmailer, <any other channels ...>]
+            options:
+                swiftmailer:
+                    from:       override@acme.org
 ```
 
 

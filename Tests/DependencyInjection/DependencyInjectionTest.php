@@ -185,8 +185,13 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider configurationProvider
+     *
+     * @param string  $resource
+     * @param array   $enabledChannels
+     * @param array   $disabledChannels
+     * @param array   $parameters
      */
-    public function testConfiguration($resource, array $enabledChannels, array $disabledChannels)
+    public function testConfiguration($resource, array $enabledChannels, array $disabledChannels, array $parameters)
     {
         $this->loadConfiguration($this->container, $resource);
         $this->container->compile();
@@ -194,13 +199,18 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
         $channels = $this->container->findTaggedServiceIds('yokai_messenger.channel');
 
         foreach ($enabledChannels as $channel) {
-            $this->assertTrue($this->container->has('yokai_messenger.' . $channel . '_channel'));
+            $this->assertTrue($this->container->has('yokai_messenger.' . $channel . '_channel'), $channel.' channel not enabled');
             $this->assertArrayHasKey('yokai_messenger.' . $channel . '_channel', $channels);
         }
 
         foreach ($disabledChannels as $channel) {
-            $this->assertFalse($this->container->has('yokai_messenger.' . $channel . '_channel'));
+            $this->assertFalse($this->container->has('yokai_messenger.' . $channel . '_channel', $channel.' channel not disabled'));
             $this->assertArrayNotHasKey('yokai_messenger.' . $channel . '_channel', $channels);
+        }
+
+        foreach ($parameters as $name => $value) {
+            $this->assertTrue($this->container->hasParameter($name), $name.' parameter not found');
+            $this->assertSame($value, $this->container->getParameter($name));
         }
     }
 
@@ -213,26 +223,62 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
                 'swiftmailer_only.' . $format,
                 ['swiftmailer'],
                 ['doctrine', 'mobile'],
+                [
+                    'yokai_messenger.swiftmailer_channel_defaults' => [
+                        'from' => ['no-reply@acme.org' => 'NoReply', 'no-reply2@acme.org' => 'NoReply2'],
+                        'translator_catalog' => 'messaging'
+                    ]
+                ],
             ];
             $sets[] = [
                 'doctrine_only.' . $format,
                 ['doctrine'],
                 ['swiftmailer', 'mobile'],
+                []
             ];
             $sets[] = [
                 'mobile_only.' . $format,
                 ['mobile'],
                 ['swiftmailer', 'doctrine'],
+                [
+                    'yokai_messenger.mobile.apns_adapter.certificate' => '/path/to/your/apns-certificate.pem',
+                    'yokai_messenger.mobile.apns_adapter.pass_phrase' => 'example',
+                    'yokai_messenger.mobile.gcm_adapter.api_key' => 'YourApiKey'
+                ]
             ];
             $sets[] = [
                 'all.' . $format,
                 ['doctrine', 'swiftmailer', 'mobile'],
                 [],
+                [
+                    'yokai_messenger.swiftmailer_channel_defaults' => [
+                        'from' => ['no-reply@acme.org', 'no-reply@acme.org'],
+                        'translator_catalog' => 'messaging'
+                    ],
+                    'yokai_messenger.mobile.apns_adapter.certificate' => '/path/to/your/apns-certificate.pem',
+                    'yokai_messenger.mobile.apns_adapter.pass_phrase' => 'example',
+                    'yokai_messenger.mobile.gcm_adapter.api_key' => 'YourApiKey'
+                ],
             ];
             $sets[] = [
                 'none.' . $format,
                 [],
                 ['doctrine', 'swiftmailer', 'mobile'],
+                []
+            ];
+            $sets[] = [
+                'full.' . $format,
+                ['doctrine', 'swiftmailer', 'mobile'],
+                [],
+                [
+                    'yokai_messenger.swiftmailer_channel_defaults' => [
+                        'from' => ['no-reply@acme.org'],
+                        'translator_catalog' => 'messaging'
+                    ],
+                    'yokai_messenger.mobile.apns_adapter.certificate' => '/path/to/your/apns-certificate.pem',
+                    'yokai_messenger.mobile.apns_adapter.pass_phrase' => 'example',
+                    'yokai_messenger.mobile.gcm_adapter.api_key' => 'YourApiKey'
+                ]
             ];
         }
 
