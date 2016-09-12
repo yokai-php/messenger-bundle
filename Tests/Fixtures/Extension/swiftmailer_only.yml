@@ -2,6 +2,6 @@
 yokai_messenger:
   channels:
     swiftmailer:
-      from: no-reply@acme.org
+      from: { no-reply@acme.org: 'NoReply', no-reply2@acme.org: 'NoReply2' }
       translator_catalog: messaging
     doctrine: false

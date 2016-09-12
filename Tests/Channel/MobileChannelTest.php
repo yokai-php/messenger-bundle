@@ -193,7 +193,7 @@ class MobileChannelTest extends \PHPUnit_Framework_TestCase
 
                 return $assertDeviceCollection($devices);
             }),
-            Argument::that(function (Push $push)  {
+            Argument::that(function (Push $push) {
                 $message = $push->getMessage();
                 if (!$message instanceof Message) {
                     return false;

@@ -146,6 +146,7 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->children()
                 ->arrayNode('from')
+                    ->normalizeKeys(false)
                     ->beforeNormalization()
                         ->ifString()->then($this->stringToArray())
                     ->end()
