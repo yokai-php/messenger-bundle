@@ -1,9 +1,10 @@
 <?php
 
-namespace Yokai\MessengerBundle\Repository;
+namespace Yokai\MessengerBundle\Entity\Repository;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Yokai\MessengerBundle\Entity\Notification;
 use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
@@ -11,36 +12,23 @@ use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
  */
-class NotificationRepository
+class NotificationRepository extends EntityRepository
 {
-    /**
-     * @var EntityManager
-     */
-    private $manager;
-
-    /**
-     * @param EntityManager $manager
-     */
-    public function __construct(EntityManager $manager)
-    {
-        $this->manager = $manager;
-    }
-
     /**
      * @param Notification $notification
      */
     public function setNotificationAsDelivered(Notification $notification)
     {
         $notification->setDelivered();
-        $this->manager->persist($notification);
-        $this->manager->flush($notification);
+        $this->getEntityManager()->persist($notification);
+        $this->getEntityManager()->flush($notification);
     }
 
     /**
      * @param QueryBuilder               $builder
      * @param DoctrineRecipientInterface $recipient
      *
-     * @return Notification[]
+     * @return QueryBuilder
      */
     public function addRecipientConditions(QueryBuilder $builder, DoctrineRecipientInterface $recipient)
     {
@@ -55,23 +43,41 @@ class NotificationRepository
             ->setParameter('class', ClassUtils::getClass($recipient))
             ->setParameter('id', $recipient->getId())
         ;
+
+        return $builder;
     }
 
     /**
-     * @param object $recipient
+     * @param DoctrineRecipientInterface  $recipient
      *
-     * @return Notification[]
+     * @return int
      */
-    public function countUndeliveredRecipientNotification($recipient)
+    public function countUndeliveredRecipientNotification(DoctrineRecipientInterface $recipient)
     {
-        $builder = $this->manager->createQueryBuilder();
+        $builder = $this->getEntityManager()->createQueryBuilder();
         $builder
             ->from(Notification::class, 'notification')
             ->select('COUNT(notification)')
         ;
         $this->addRecipientConditions($builder, $recipient);
-        $builder->andWhere($builder->expr()->isNull('yokai_messenger.deliveredAt'));
+        $builder->andWhere($builder->expr()->isNull('notification.deliveredAt'));
 
         return intval($builder->getQuery()->getSingleScalarResult());
+    }
+
+    /**
+     * @param DoctrineRecipientInterface $recipient
+     *
+     * @return array
+     */
+    public function findUndeliveredRecipientNotification(DoctrineRecipientInterface $recipient)
+    {
+        $builder = $this->createQueryBuilder('notification');
+
+        $this->addRecipientConditions($builder, $recipient);
+
+        $builder->andWhere($builder->expr()->isNull('notification.deliveredAt'));
+
+        return $builder->getQuery()->getResult();
     }
 }

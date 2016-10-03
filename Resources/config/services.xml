@@ -20,6 +20,13 @@
             <argument>%yokai_messenger.content_builder_defaults%</argument>
         </service>
 
+        <service id="yokai_messenger.notification_repository"
+                 class="Yokai\MessengerBundle\Entity\Repository\NotificationRepository">
+            <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
+            <argument>Yokai\MessengerBundle\Entity\Notification</argument>
+        </service>
+
+
     </services>
 
 </container>
