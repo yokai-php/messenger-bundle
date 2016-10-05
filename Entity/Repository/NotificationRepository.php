@@ -3,7 +3,6 @@
 namespace Yokai\MessengerBundle\Entity\Repository;
 
 use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Yokai\MessengerBundle\Entity\Notification;
@@ -77,6 +76,20 @@ class NotificationRepository extends EntityRepository
         $this->addRecipientConditions($builder, $recipient);
 
         $builder->andWhere($builder->expr()->isNull('notification.deliveredAt'));
+
+        return $builder->getQuery()->getResult();
+    }
+
+    /**
+     * @param DoctrineRecipientInterface $recipient
+     *
+     * @return Notification[]
+     */
+    public function findAllForRecipient(DoctrineRecipientInterface $recipient)
+    {
+        $builder = $this->createQueryBuilder('notification');
+
+        $this->addRecipientConditions($builder, $recipient);
 
         return $builder->getQuery()->getResult();
     }
