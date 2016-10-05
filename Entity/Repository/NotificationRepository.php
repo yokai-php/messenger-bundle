@@ -53,9 +53,8 @@ class NotificationRepository extends EntityRepository
      */
     public function countUndeliveredRecipientNotification(DoctrineRecipientInterface $recipient)
     {
-        $builder = $this->getEntityManager()->createQueryBuilder();
+        $builder = $this->createQueryBuilder('notification');
         $builder
-            ->from(Notification::class, 'notification')
             ->select('COUNT(notification)')
         ;
         $this->addRecipientConditions($builder, $recipient);
@@ -67,7 +66,7 @@ class NotificationRepository extends EntityRepository
     /**
      * @param DoctrineRecipientInterface $recipient
      *
-     * @return array
+     * @return Notification[]
      */
     public function findUndeliveredRecipientNotification(DoctrineRecipientInterface $recipient)
     {
