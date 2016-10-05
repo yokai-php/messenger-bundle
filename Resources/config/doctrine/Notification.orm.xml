@@ -3,7 +3,10 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity table="yokai_messenger_notification" name="Yokai\MessengerBundle\Entity\Notification">
+    <entity
+        table="yokai_messenger_notification"
+        name="Yokai\MessengerBundle\Entity\Notification"
+        repository-class="Yokai\MessengerBundle\Entity\Repository\NotificationRepository">
         <indexes>
             <index columns="recipient_class,recipient_id"/>
             <index columns="recorded_at"/>
