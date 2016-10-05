@@ -26,7 +26,6 @@
             <argument>Yokai\MessengerBundle\Entity\Notification</argument>
         </service>
 
-
     </services>
 
 </container>
