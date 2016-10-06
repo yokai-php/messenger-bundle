@@ -11,6 +11,7 @@ interface SenderInterface
      * @param string $message
      * @param mixed  $recipient
      * @param array  $parameters
+     * @param array  $attachments
      */
-    public function send($message, $recipient, array $parameters = []);
+    public function send($message, $recipient, array $parameters = [], array $attachments = []);
 }

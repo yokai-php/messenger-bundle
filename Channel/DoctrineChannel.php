@@ -2,9 +2,12 @@
 
 namespace Yokai\MessengerBundle\Channel;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\File\File;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Entity\Notification;
+use Yokai\MessengerBundle\Entity\NotificationAttachment;
 use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -43,6 +46,9 @@ class DoctrineChannel implements ChannelInterface
      */
     public function configure(OptionsResolver $resolver)
     {
+        $resolver
+            ->setDefined(['attachments_path'])
+        ;
     }
 
     /**
@@ -50,13 +56,27 @@ class DoctrineChannel implements ChannelInterface
      */
     public function handle(Delivery $delivery)
     {
+        $options = $delivery->getOptions();
+
         $notification = new Notification(
             $delivery->getSubject(),
             $delivery->getBody(),
             $delivery->getRecipient()
         );
 
+        foreach ($delivery->getAttachments() as $attachment) {
+            /** @var $attachment File */
+            copy(
+                $attachment->getPathname(),
+                sprintf('%s/%s', $options['attachments_path'], $attachment->getBasename())
+            );
+            $notificationAttachment = new NotificationAttachment($notification, $attachment->getBasename());
+            $notification->addNotificationAttachment($notificationAttachment);
+
+            $this->manager->persist($notificationAttachment);
+        }
+
         $this->manager->persist($notification);
-        $this->manager->flush($notification);
+        $this->manager->flush();
     }
 }

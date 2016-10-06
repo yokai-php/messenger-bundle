@@ -2,7 +2,9 @@
 
 namespace Yokai\MessengerBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Util\ClassUtils;
+use Symfony\Component\HttpFoundation\File\File;
 use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
 
 /**
@@ -26,6 +28,11 @@ class Notification
     private $body;
 
     /**
+     * @var array
+     */
+    private $attachments;
+
+    /**
      * @var \DateTime
      */
     private $recordedAt;
@@ -41,11 +48,6 @@ class Notification
     private $recipientId;
 
     /**
-     * @var \DateTime|null
-     */
-    private $deliveredAt;
-
-    /**
      * @param string                     $subject
      * @param string                     $body
      * @param DoctrineRecipientInterface $recipient
@@ -57,7 +59,14 @@ class Notification
         $this->recipientClass = ClassUtils::getClass($recipient);
         $this->recipientId = $recipient->getId();
         $this->recordedAt = new \DateTime('now');
+
+        $this->attachments = new ArrayCollection();
     }
+
+    /**
+     * @var \DateTime|null
+     */
+    private $deliveredAt;
 
     /**
      * @return integer
@@ -81,6 +90,14 @@ class Notification
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * @return File[]
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
     }
 
     /**
@@ -133,5 +150,22 @@ class Notification
 
         $this->deliveredAt = new \DateTime('now');
     }
-}
 
+    /**
+     * @param NotificationAttachment[] $attachments
+     *
+     * @return $this
+     */
+    public function setAttachments($attachments)
+    {
+        $this->attachments = $attachments;
+    }
+
+    /**
+     * @param NotificationAttachment $attachment
+     */
+    public function addNotificationAttachment(NotificationAttachment $attachment)
+    {
+        $this->attachments->add($attachment);
+    }
+}

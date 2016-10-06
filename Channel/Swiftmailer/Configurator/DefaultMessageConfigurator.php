@@ -3,8 +3,10 @@
 namespace Yokai\MessengerBundle\Channel\Swiftmailer\Configurator;
 
 use Swift_Message;
+use Symfony\Component\HttpFoundation\File\File;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
+use Swift_Attachment;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
@@ -26,5 +28,10 @@ class DefaultMessageConfigurator implements SwiftMessageConfiguratorInterface
             ->setTo($recipient instanceof SwiftmailerRecipientInterface ? $recipient->getEmail() : $recipient)
             ->setBody($delivery->getBody(), 'text/html')
         ;
+
+        foreach ($delivery->getAttachments() as $file) {
+            /** @var $file File */
+            $message->attach(Swift_Attachment::fromPath($file->getPathname(), $file->getMimeType()));
+        }
     }
 }
