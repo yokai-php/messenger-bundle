@@ -84,6 +84,12 @@ $sender->send(
         '{group}' => $recipient->getNotificationGroup(),
         'recipient' => $recipient,
         'message' => 'You have been busy today!',
+    ],
+    [
+        # attachments
+        Symfony\Component\HttpFoundation\File\File,
+        Symfony\Component\HttpFoundation\File\File,
+        ...
     ]
 );
 ```

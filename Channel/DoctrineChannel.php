@@ -2,9 +2,9 @@
 
 namespace Yokai\MessengerBundle\Channel;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Filesystem\Filesystem;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Entity\Notification;
 use Yokai\MessengerBundle\Entity\NotificationAttachment;
@@ -66,7 +66,8 @@ class DoctrineChannel implements ChannelInterface
 
         foreach ($delivery->getAttachments() as $attachment) {
             /** @var $attachment File */
-            copy(
+            $fs = new Filesystem();
+            $fs->copy(
                 $attachment->getPathname(),
                 sprintf('%s/%s', $options['attachments_path'], $attachment->getBasename())
             );
