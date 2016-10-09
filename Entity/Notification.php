@@ -94,7 +94,7 @@ class Notification
     }
 
     /**
-     * @return File[]
+     * @return NotificationAttachment[]
      */
     public function getAttachments()
     {
