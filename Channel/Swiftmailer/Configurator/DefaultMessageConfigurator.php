@@ -30,7 +30,6 @@ class DefaultMessageConfigurator implements SwiftMessageConfiguratorInterface
         ;
 
         foreach ($delivery->getAttachments() as $file) {
-            /** @var $file File */
             $message->attach(Swift_Attachment::fromPath($file->getPathname(), $file->getMimeType()));
         }
     }

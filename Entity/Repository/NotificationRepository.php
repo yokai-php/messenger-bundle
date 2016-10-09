@@ -76,6 +76,8 @@ class NotificationRepository extends EntityRepository
 
         $builder->andWhere($builder->expr()->isNull('notification.deliveredAt'));
 
+        $builder->addOrderBy('notification.deliveredAt', 'DESC');
+
         return $builder->getQuery()->getResult();
     }
 
@@ -89,6 +91,8 @@ class NotificationRepository extends EntityRepository
         $builder = $this->createQueryBuilder('notification');
 
         $this->addRecipientConditions($builder, $recipient);
+
+        $builder->addOrderBy('notification.deliveredAt', 'DESC');
 
         return $builder->getQuery()->getResult();
     }

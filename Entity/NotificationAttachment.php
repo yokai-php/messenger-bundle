@@ -33,7 +33,7 @@ class NotificationAttachment
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAttachment()
     {
@@ -54,13 +54,5 @@ class NotificationAttachment
     public function getNotification()
     {
         return $this->notification;
-    }
-
-    /**
-     * @param string $attachment
-     */
-    public function setAttachment($attachment)
-    {
-        $this->attachment = $attachment;
     }
 }

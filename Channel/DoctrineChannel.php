@@ -64,20 +64,17 @@ class DoctrineChannel implements ChannelInterface
             $delivery->getRecipient()
         );
 
+        $fs = new Filesystem();
         foreach ($delivery->getAttachments() as $attachment) {
-            /** @var $attachment File */
-            $fs = new Filesystem();
             $fs->copy(
                 $attachment->getPathname(),
                 sprintf('%s/%s', $options['attachments_path'], $attachment->getBasename())
             );
             $notificationAttachment = new NotificationAttachment($notification, $attachment->getBasename());
             $notification->addNotificationAttachment($notificationAttachment);
-
-            $this->manager->persist($notificationAttachment);
         }
 
         $this->manager->persist($notification);
-        $this->manager->flush();
+        $this->manager->flush($notification);
     }
 }

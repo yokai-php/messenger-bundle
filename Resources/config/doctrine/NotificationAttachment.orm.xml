@@ -14,7 +14,11 @@
 
         <field name="attachment"    column="attachment"     type="text"   nullable="false"/>
 
-        <many-to-one field="notification" target-entity="Yokai\MessengerBundle\Entity\Notification"/>
+        <many-to-one field="notification" target-entity="Yokai\MessengerBundle\Entity\Notification">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
     </entity>
 
 </doctrine-mapping>
