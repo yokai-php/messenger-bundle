@@ -4,21 +4,12 @@ php:
   - 5.5
   - 5.6
   - 7.0
-  - hhvm
 
-matrix:
-  fast_finish: true
-  include:
-    - php: 5.6
-      env: SYMFONY_VERSION=2.7.*
-    - php: 5.6
-      env: SYMFONY_VERSION=2.8.*@dev
-    - php: 5.6
-      env: SYMFONY_VERSION="3.0.x-dev as 2.8"
-  allow_failures:
-    - php: hhvm
-    - env: SYMFONY_VERSION=2.8.*@dev
-    - env: SYMFONY_VERSION="3.0.x-dev as 2.8"
+env:
+  - SYMFONY_VERSION="2.8.*"
+  - SYMFONY_VERSION="3.0.*"
+  - SYMFONY_VERSION="3.1.*"
+  - SYMFONY_VERSION="3.2.x-dev as 3.2"
 
 sudo: false
 
@@ -26,18 +17,16 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-before_install:
-  - composer selfupdate
-  - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update; fi;
-
-install: composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
+before_script:
+  - composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update
+  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
 
 script:
-  - vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=coverage.clover
+  - vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
 
 after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - travis_retry wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
 notifications:
   email: yann.eugone@gmail.com
