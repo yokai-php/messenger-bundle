@@ -88,6 +88,8 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
             'subject',
             'body',
             [
+            ],
+            [
             ]
         );
 
@@ -99,6 +101,8 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
             ],
             'subject',
             'body',
+            [
+            ],
             [
             ]
         );
@@ -155,6 +159,8 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
             'subject',
             'body',
             [
+            ],
+            [
             ]
         );
 
@@ -169,6 +175,8 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
             ],
             'subject',
             'body',
+            [
+            ],
             [
             ]
         );
