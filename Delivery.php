@@ -1,6 +1,7 @@
 <?php
 
 namespace Yokai\MessengerBundle;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
@@ -38,21 +39,35 @@ class Delivery
     private $parameters;
 
     /**
+     * @var array
+     */
+    private $attachments;
+
+    /**
      * @param string $message
      * @param mixed  $recipient
      * @param array  $options
      * @param string $subject
      * @param string $body
      * @param array  $parameters
+     * @param File[] $attachments
      */
-    public function __construct($message, $recipient, array $options, $subject, $body, array $parameters)
-    {
+    public function __construct(
+        $message,
+        $recipient,
+        array $options,
+        $subject,
+        $body,
+        array $parameters,
+        array $attachments
+    ) {
         $this->message = $message;
         $this->recipient = $recipient;
         $this->options = $options;
         $this->subject = $subject;
         $this->body = $body;
         $this->parameters = $parameters;
+        $this->attachments = $attachments;
     }
 
     /**
@@ -101,5 +116,13 @@ class Delivery
     public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * @return File[]
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
     }
 }

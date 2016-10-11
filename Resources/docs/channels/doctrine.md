@@ -70,3 +70,22 @@ This bundle is only responsible registering messages in a database
 (fetch messages and display it via the UI is up to you).
 
 The entity you must ask for is `Yokai\MessengerBundle\Entity\Notification`.
+
+Attachments are handled and registered on database. The entity you must ask for is 
+`Yokai\MessengerBundle\Entity\NotificationAttachment`.
+
+Attachment names are registered on the database, files are put on a folder you have to defined for each messages with
+ attachment. 
+ 
+``` yaml
+yokai_messenger:
+ messages:
+     -
+         id:       <up to you>
+         channels: doctrine # or [doctrine, <any other channels ...>]
+        defaults:
+            ...
+        options:
+            doctrine:
+                attachments_path: '/path/to/your/folder'
+```

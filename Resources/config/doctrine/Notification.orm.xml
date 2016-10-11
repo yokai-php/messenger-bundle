@@ -23,6 +23,15 @@
         <field name="recipientClass" column="recipient_class" type="string"   nullable="false" length="255"/>
         <field name="recipientId"    column="recipient_id"    type="integer"  nullable="false"/>
         <field name="deliveredAt"    column="delivered_at"    type="datetime" nullable="true"/>
+
+        <one-to-many
+                field="attachments"
+                target-entity="Yokai\MessengerBundle\Entity\NotificationAttachment"
+                mapped-by="notification">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
     </entity>
 
 </doctrine-mapping>

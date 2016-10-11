@@ -92,6 +92,8 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
                 'subject',
                 'body',
                 [
+                ],
+                [
                 ]
             )
         );

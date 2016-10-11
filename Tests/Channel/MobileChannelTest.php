@@ -148,6 +148,7 @@ class MobileChannelTest extends \PHPUnit_Framework_TestCase
                 [],
                 'subject',
                 'body',
+                [],
                 []
             )
         );

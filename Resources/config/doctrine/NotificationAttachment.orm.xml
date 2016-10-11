@@ -1,0 +1,24 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity
+        table="yokai_messenger_notification_attachment"
+        name="Yokai\MessengerBundle\Entity\NotificationAttachment"
+        repository-class="Yokai\MessengerBundle\Entity\Repository\NotificationAttachmentRepository">
+
+        <id name="id" column="id" type="integer">
+            <generator strategy="IDENTITY"/>
+        </id>
+
+        <field name="attachment"    column="attachment"     type="text"   nullable="false"/>
+
+        <many-to-one field="notification" target-entity="Yokai\MessengerBundle\Entity\Notification" inversed-by="attachments" >
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>
