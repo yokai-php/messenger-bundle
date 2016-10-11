@@ -107,7 +107,7 @@ class DefaultSender implements SenderInterface
     /**
      * @inheritdoc
      */
-    public function send($message, $recipient, array $parameters = [])
+    public function send($message, $recipient, array $parameters = [], array $attachments = [])
     {
         //Check that the message is registered
         if (!isset($this->messages[$message])) {
@@ -179,7 +179,8 @@ class DefaultSender implements SenderInterface
                     $options, //Options for this channel
                     $this->contentBuilder->getSubject($parameters), //Message subject
                     $this->contentBuilder->getBody($parameters), //Message body
-                    $parameters //Provided parameters
+                    $parameters, //Provided parameters
+                    $attachments //Provided attachments
                 );
 
                 try {
