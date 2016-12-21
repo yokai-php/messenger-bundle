@@ -54,7 +54,6 @@ class ContentBuilder
             ->setDefault('subject_parameters', [])
             ->setDefault('template_parameters', [])
             ->setDefault('template_vars', [])
-            ->setDefault('mobile_data', [])
             ->setNormalizer('subject_parameters', function ($opts, $value) {
                 return array_values((array) $value);
             })
@@ -63,9 +62,6 @@ class ContentBuilder
             })
             ->setNormalizer('template_vars', function ($opts, $value) {
                 return (array) $value;
-            })
-            ->setNormalizer('mobile_data', function ($opts, $value) {
-                return array_values((array) $value);
             })
         ;
 
