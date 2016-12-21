@@ -50,6 +50,9 @@ class MobileChannel implements ChannelInterface
      */
     public function configure(OptionsResolver $resolver)
     {
+        $resolver
+            ->setDefault('mobile_data', [])
+        ;
     }
 
     /**
@@ -60,7 +63,10 @@ class MobileChannel implements ChannelInterface
         /** @var $recipient MobileRecipientInterface */
         $recipient = $delivery->getRecipient();
 
-        $message = new Message($delivery->getSubject());
+        $options = $delivery->getOptions();
+        $options = array_intersect_key($delivery->getParameters(), array_flip($options['mobile_data']));
+
+        $message = new Message($delivery->getSubject(), $options);
 
         foreach ($this->adapters as $adapter) {
             $devices = new DeviceCollection();

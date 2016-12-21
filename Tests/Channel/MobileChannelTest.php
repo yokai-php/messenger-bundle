@@ -10,6 +10,7 @@ use Sly\NotificationPusher\Model\Device;
 use Sly\NotificationPusher\Model\Message;
 use Sly\NotificationPusher\Model\Push;
 use Sly\NotificationPusher\PushManager;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\MobileChannel;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
@@ -97,7 +98,7 @@ class MobileChannelTest extends \PHPUnit_Framework_TestCase
             ->willReturn(true);
 
         $fooPushProphecy = $this->getPushProphecy(
-            $fooAdapter,
+            $fooAdapter->reveal(),
             function (DeviceCollection $collection) {
                 if (1 !== $collection->count()) {
                     return false;
@@ -108,7 +109,7 @@ class MobileChannelTest extends \PHPUnit_Framework_TestCase
         );
 
         $barPushProphecy = $this->getPushProphecy(
-            $barAdapter,
+            $barAdapter->reveal(),
             function (DeviceCollection $collection) {
                 if (1 !== $collection->count()) {
                     return false;
@@ -119,7 +120,7 @@ class MobileChannelTest extends \PHPUnit_Framework_TestCase
         );
 
         $foobarPushProphecy = $this->getPushProphecy(
-            $foobarAdapter,
+            $foobarAdapter->reveal(),
             function (DeviceCollection $collection) {
                 if (2 !== $collection->count()) {
                     return false;
@@ -141,11 +142,15 @@ class MobileChannelTest extends \PHPUnit_Framework_TestCase
 
         $channel = $this->createChannel([]);
 
+        $resolver = new OptionsResolver();
+        $channel->configure($resolver);
+        $parameters = $resolver->resolve([]);
+
         $channel->handle(
             new Delivery(
                 'test',
                 $recipient,
-                [],
+                $parameters,
                 'subject',
                 'body',
                 [],

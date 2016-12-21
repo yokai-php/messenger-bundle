@@ -84,11 +84,15 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
 
         $channel = $this->createChannel([]);
 
+        $resolver = new OptionsResolver();
+        $channel->configure($resolver);
+        $parameters = $resolver->resolve([]);
+
         $channel->handle(
             new Delivery(
                 'test',
                 $recipient,
-                [],
+                $parameters,
                 'subject',
                 'body',
                 [
