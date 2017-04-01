@@ -2,7 +2,11 @@
 
 namespace Yokai\MessengerBundle\Sender;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use SplPriorityQueue;
+use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\ChannelInterface;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Exception\BadConfigurationException;
@@ -11,10 +15,6 @@ use Yokai\MessengerBundle\Exception\ChannelHandleException;
 use Yokai\MessengerBundle\Exception\ExceptionInterface;
 use Yokai\MessengerBundle\Helper\ContentBuilder;
 use Yokai\MessengerBundle\Message;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
-use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

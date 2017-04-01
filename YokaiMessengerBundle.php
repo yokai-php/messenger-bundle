@@ -3,11 +3,11 @@
 namespace Yokai\MessengerBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Yokai\MessengerBundle\DependencyInjection\CompilerPass\ConfigureSenderCompilerPass;
 use Yokai\MessengerBundle\DependencyInjection\CompilerPass\RegisterMobileAdapterCompilerPass;
 use Yokai\MessengerBundle\DependencyInjection\CompilerPass\RegisterSwiftmailerConfiguratorCompilerPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

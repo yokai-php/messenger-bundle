@@ -2,6 +2,11 @@
 
 namespace Yokai\MessengerBundle\Tests\Sender;
 
+use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\ChannelInterface;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Exception\BadConfigurationException;
@@ -11,11 +16,6 @@ use Yokai\MessengerBundle\Message;
 use Yokai\MessengerBundle\Sender\DefaultSender;
 use Yokai\MessengerBundle\Tests\Fixtures\OptionsResolverException;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DummyRecipient;
-use Prophecy\Argument;
-use Prophecy\Prophecy\ObjectProphecy;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

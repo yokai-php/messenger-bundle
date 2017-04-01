@@ -5,10 +5,6 @@ namespace Yokai\MessengerBundle\Tests\DependencyInjection;
 use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
-use Yokai\MessengerBundle\Message;
-use Yokai\MessengerBundle\Tests\Fixtures\Channel\DummyChannel;
-use Yokai\MessengerBundle\Tests\Fixtures\Channel\InvalidChannel;
-use Yokai\MessengerBundle\Tests\Fixtures\InvalidMessage;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -17,6 +13,10 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Yokai\MessengerBundle\Message;
+use Yokai\MessengerBundle\Tests\Fixtures\Channel\DummyChannel;
+use Yokai\MessengerBundle\Tests\Fixtures\Channel\InvalidChannel;
+use Yokai\MessengerBundle\Tests\Fixtures\InvalidMessage;
 use Yokai\MessengerBundle\YokaiMessengerBundle;
 
 /**

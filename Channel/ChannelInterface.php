@@ -2,8 +2,8 @@
 
 namespace Yokai\MessengerBundle\Channel;
 
-use Yokai\MessengerBundle\Delivery;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Yokai\MessengerBundle\Delivery;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

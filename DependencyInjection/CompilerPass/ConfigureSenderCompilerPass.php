@@ -3,12 +3,12 @@
 namespace Yokai\MessengerBundle\DependencyInjection\CompilerPass;
 
 use InvalidArgumentException;
-use Yokai\MessengerBundle\Channel\ChannelInterface;
-use Yokai\MessengerBundle\Message;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Yokai\MessengerBundle\Channel\ChannelInterface;
+use Yokai\MessengerBundle\Message;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

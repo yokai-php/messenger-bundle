@@ -2,11 +2,10 @@
 
 namespace Yokai\MessengerBundle\Channel\Swiftmailer\Configurator;
 
+use Swift_Attachment;
 use Swift_Message;
-use Symfony\Component\HttpFoundation\File\File;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
-use Swift_Attachment;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

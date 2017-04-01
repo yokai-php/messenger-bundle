@@ -4,10 +4,10 @@ namespace Yokai\MessengerBundle\Channel;
 
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\SwiftMessageConfiguratorInterface;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

@@ -3,16 +3,15 @@
 namespace Yokai\MessengerBundle\Tests\Channel;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
+use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\DoctrineChannel;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Entity\Notification;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
-use Prophecy\Argument;
-use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

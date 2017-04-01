@@ -2,10 +2,10 @@
 
 namespace Yokai\MessengerBundle\Helper;
 
-use Yokai\MessengerBundle\Exception\BadMethodCallException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Yokai\MessengerBundle\Exception\BadMethodCallException;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

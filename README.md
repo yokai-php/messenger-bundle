@@ -1,10 +1,15 @@
 YokaiMessengerBundle
 ====================
 
+[![Latest Stable Version](https://poser.pugx.org/yokai/messenger-bundle/v/stable)](https://packagist.org/packages/yokai/messenger-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/yokai/messenger-bundle/v/unstable)](https://packagist.org/packages/yokai/messenger-bundle)
+[![Total Downloads](https://poser.pugx.org/yokai/messenger-bundle/downloads)](https://packagist.org/packages/yokai/messenger-bundle)
+[![License](https://poser.pugx.org/yokai/messenger-bundle/license)](https://packagist.org/packages/yokai/messenger-bundle)
+
 [![Build Status](https://api.travis-ci.org/yokai-php/messenger-bundle.png?branch=master)](https://travis-ci.org/yokai-php/messenger-bundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yokai-php/messenger-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yokai-php/messenger-bundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/yokai-php/messenger-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/yokai-php/messenger-bundle/?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/56e90e2e-3d35-458b-a000-ab21d57b3f94/mini.png)](https://insight.sensiolabs.com/projects/56e90e2e-3d35-458b-a000-ab21d57b3f94)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/784206ed-6ba1-453e-9141-1ef3c7f6a0b2/mini.png)](https://insight.sensiolabs.com/projects/784206ed-6ba1-453e-9141-1ef3c7f6a0b2)
 
 
 Simplify message sending processes in a Symfony2 project.
