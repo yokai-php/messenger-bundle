@@ -5,7 +5,7 @@ namespace Yokai\MessengerBundle\Exception;
 use BadMethodCallException as BaseException;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class BadMethodCallException extends BaseException implements ExceptionInterface
 {

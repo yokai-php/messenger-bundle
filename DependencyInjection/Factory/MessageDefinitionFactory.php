@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Yokai\MessengerBundle\Message;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class MessageDefinitionFactory
 {

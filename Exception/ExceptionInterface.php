@@ -3,7 +3,7 @@
 namespace Yokai\MessengerBundle\Exception;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 interface ExceptionInterface
 {

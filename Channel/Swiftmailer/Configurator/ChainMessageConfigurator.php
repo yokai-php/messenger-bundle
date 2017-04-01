@@ -6,7 +6,7 @@ use Swift_Message;
 use Yokai\MessengerBundle\Delivery;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class ChainMessageConfigurator implements SwiftMessageConfiguratorInterface
 {

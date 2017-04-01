@@ -5,7 +5,7 @@ namespace Yokai\MessengerBundle\Tests\Fixtures\Recipient;
 use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class SwiftmailerRecipient implements SwiftmailerRecipientInterface
 {

@@ -3,7 +3,7 @@
 namespace Yokai\MessengerBundle\Entity;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class NotificationAttachment
 {

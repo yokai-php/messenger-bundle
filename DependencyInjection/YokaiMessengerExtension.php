@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Yokai\MessengerBundle\DependencyInjection\Factory\MessageDefinitionFactory;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class YokaiMessengerExtension extends Extension
 {

@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class BadConfigurationException extends InvalidArgumentException implements ExceptionInterface
 {

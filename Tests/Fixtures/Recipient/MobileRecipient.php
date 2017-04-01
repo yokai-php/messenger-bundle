@@ -5,7 +5,7 @@ namespace Yokai\MessengerBundle\Tests\Fixtures\Recipient;
 use Yokai\MessengerBundle\Recipient\MobileRecipientInterface;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class MobileRecipient implements MobileRecipientInterface
 {

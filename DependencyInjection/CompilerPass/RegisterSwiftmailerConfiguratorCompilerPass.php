@@ -7,7 +7,7 @@ use Yokai\DependencyInjection\CompilerPass\ArgumentRegisterTaggedServicesCompile
 use Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\SwiftMessageConfiguratorInterface;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class RegisterSwiftmailerConfiguratorCompilerPass extends ArgumentRegisterTaggedServicesCompilerPass
 {

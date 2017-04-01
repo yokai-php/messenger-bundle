@@ -6,7 +6,7 @@ use Yokai\MessengerBundle\Delivery;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 interface ChannelInterface
 {
