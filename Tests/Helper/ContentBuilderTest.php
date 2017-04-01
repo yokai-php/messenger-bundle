@@ -8,7 +8,7 @@ use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class ContentBuilderTest extends \PHPUnit_Framework_TestCase
 {

@@ -9,7 +9,7 @@ use Yokai\MessengerBundle\Entity\Notification;
 use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class NotificationRepository extends EntityRepository
 {

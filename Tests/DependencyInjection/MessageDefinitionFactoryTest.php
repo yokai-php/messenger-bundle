@@ -5,6 +5,9 @@ namespace Yokai\MessengerBundle\Tests\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Yokai\MessengerBundle\DependencyInjection\Factory\MessageDefinitionFactory;
 
+/**
+ * @author Yann Eugoné <eugone.yann@gmail.com>
+ */
 class MessageDefinitionFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**

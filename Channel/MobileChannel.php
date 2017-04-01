@@ -13,7 +13,7 @@ use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Recipient\MobileRecipientInterface;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class MobileChannel implements ChannelInterface
 {

@@ -17,6 +17,9 @@ use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Yokai\MessengerBundle\YokaiMessengerBundle;
 
+/**
+ * @author Yann Eugoné <eugone.yann@gmail.com>
+ */
 class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
 {
     /**

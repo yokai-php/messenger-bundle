@@ -18,7 +18,7 @@ use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class MobileChannelTest extends \PHPUnit_Framework_TestCase
 {

@@ -9,23 +9,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Yokai\MessengerBundle\DependencyInjection\Factory\MessageDefinitionFactory;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class YokaiMessengerExtension extends Extension
 {
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @param string $name
-     */
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
-
     /**
      * @inheritdoc
      */
@@ -70,22 +57,6 @@ class YokaiMessengerExtension extends Extension
         }
 
         $this->registerMessages($config['messages'], $container);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getConfiguration(array $config, ContainerBuilder $container)
-    {
-        return new Configuration($this->name);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAlias()
-    {
-        return $this->name;
     }
 
     /**

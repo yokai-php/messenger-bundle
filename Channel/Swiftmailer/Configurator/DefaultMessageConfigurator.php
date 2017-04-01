@@ -9,7 +9,7 @@ use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
 use Swift_Attachment;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class DefaultMessageConfigurator implements SwiftMessageConfiguratorInterface
 {

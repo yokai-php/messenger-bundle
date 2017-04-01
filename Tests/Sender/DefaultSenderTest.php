@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class DefaultSenderTest extends \PHPUnit_Framework_TestCase
 {

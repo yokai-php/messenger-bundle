@@ -2,14 +2,14 @@
 
 namespace Yokai\MessengerBundle\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Util\ClassUtils;
-use Symfony\Component\HttpFoundation\File\File;
 use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
 
 /**
- * Notification Doctrine ORM entity
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class Notification
 {
@@ -34,7 +34,7 @@ class Notification
     private $attachments;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $recordedAt;
 
@@ -49,7 +49,7 @@ class Notification
     private $recipientId;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      */
     private $deliveredAt;
 
@@ -64,7 +64,7 @@ class Notification
         $this->body = $body;
         $this->recipientClass = ClassUtils::getClass($recipient);
         $this->recipientId = $recipient->getId();
-        $this->recordedAt = new \DateTime('now');
+        $this->recordedAt = new DateTime('now');
 
         $this->attachments = new ArrayCollection();
     }
@@ -118,7 +118,7 @@ class Notification
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRecordedAt()
     {
@@ -134,7 +134,7 @@ class Notification
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getDeliveredAt()
     {
@@ -149,7 +149,7 @@ class Notification
             return; //immutable
         }
 
-        $this->deliveredAt = new \DateTime('now');
+        $this->deliveredAt = new DateTime('now');
     }
 
     /**

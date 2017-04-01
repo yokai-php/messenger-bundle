@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Yokai\MessengerBundle\Message;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class MessageDefinitionFactory
 {
@@ -19,8 +19,13 @@ class MessageDefinitionFactory
      * @param array            $defaults
      * @param array            $options
      */
-    public static function create(ContainerBuilder $container, $id, array $channels, array $defaults = [], array $options = [])
-    {
+    public static function create(
+        ContainerBuilder $container,
+        $id,
+        array $channels,
+        array $defaults = [],
+        array $options = []
+    ) {
         $messageId = sprintf('yokai_messenger.message.%s', $id);
 
         if ($container->hasDefinition($messageId)) {

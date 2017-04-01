@@ -6,7 +6,7 @@ use Yokai\MessengerBundle\Entity\Notification;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
 
 /**
- * @author Yann Eugoné <yann.eugone@gmail.com>
+ * @author Yann Eugoné <eugone.yann@gmail.com>
  */
 class NotificationTest extends \PHPUnit_Framework_TestCase
 {
