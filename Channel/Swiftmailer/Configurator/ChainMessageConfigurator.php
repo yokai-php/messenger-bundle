@@ -24,7 +24,7 @@ class ChainMessageConfigurator implements SwiftMessageConfiguratorInterface
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function configure(Swift_Message $message, Delivery $delivery)
     {

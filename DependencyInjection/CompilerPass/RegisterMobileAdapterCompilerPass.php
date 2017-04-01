@@ -25,7 +25,7 @@ class RegisterMobileAdapterCompilerPass extends ArgumentRegisterTaggedServicesCo
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function process(ContainerBuilder $container)
     {

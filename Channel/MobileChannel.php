@@ -38,7 +38,7 @@ class MobileChannel implements ChannelInterface
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function supports($recipient)
     {
@@ -46,7 +46,7 @@ class MobileChannel implements ChannelInterface
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function configure(OptionsResolver $resolver)
     {
@@ -56,7 +56,7 @@ class MobileChannel implements ChannelInterface
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function handle(Delivery $delivery)
     {

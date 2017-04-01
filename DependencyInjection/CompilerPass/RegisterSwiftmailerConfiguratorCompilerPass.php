@@ -25,7 +25,7 @@ class RegisterSwiftmailerConfiguratorCompilerPass extends ArgumentRegisterTagged
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function process(ContainerBuilder $container)
     {
