@@ -2,12 +2,13 @@
 
 namespace Yokai\MessengerBundle\Exception;
 
+use InvalidArgumentException;
 use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;
 
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
  */
-class BadConfigurationException extends \InvalidArgumentException implements ExceptionInterface
+class BadConfigurationException extends InvalidArgumentException implements ExceptionInterface
 {
     /**
      * @param OptionsResolverException $previous

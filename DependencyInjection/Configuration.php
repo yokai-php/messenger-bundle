@@ -13,31 +13,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var TreeBuilder
-     */
-    private $builder;
-
-    /**
-     * @param string $name
-     */
-    public function __construct($name)
-    {
-        $this->name = $name;
-        $this->builder = new TreeBuilder();
-    }
-
-    /**
      * @inheritdoc
      */
     public function getConfigTreeBuilder()
     {
         $builder = $this->getBuilder();
-        $root = $builder->root($this->name);
+        $root = $builder->root('yokai_messenger');
 
         $root
             ->addDefaultsIfNotSet()
@@ -58,7 +39,7 @@ class Configuration implements ConfigurationInterface
      */
     private function getBuilder()
     {
-        return clone $this->builder;
+        return new TreeBuilder();
     }
 
     /**
@@ -235,7 +216,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return \Closure
+     * @return callable
      */
     private function stringToArray()
     {
@@ -245,7 +226,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return \Closure
+     * @return callable
      */
     private function isNotHash()
     {
@@ -265,7 +246,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @param string $node
      *
-     * @return \Closure
+     * @return callable
      */
     private function nodeRequiredIfEnabled($node)
     {
@@ -291,9 +272,8 @@ class Configuration implements ConfigurationInterface
     private function nodeMustBeConfigured($node, $path)
     {
         return sprintf(
-            'The child node "%s" at path "%s.%s" must be configured.',
+            'The child node "%s" at path "yokai_messenger.%s" must be configured.',
             $node,
-            $this->name,
             $path
         );
     }

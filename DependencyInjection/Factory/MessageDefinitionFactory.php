@@ -19,8 +19,13 @@ class MessageDefinitionFactory
      * @param array            $defaults
      * @param array            $options
      */
-    public static function create(ContainerBuilder $container, $id, array $channels, array $defaults = [], array $options = [])
-    {
+    public static function create(
+        ContainerBuilder $container,
+        $id,
+        array $channels,
+        array $defaults = [],
+        array $options = []
+    ) {
         $messageId = sprintf('yokai_messenger.message.%s', $id);
 
         if ($container->hasDefinition($messageId)) {

@@ -2,6 +2,8 @@
 
 namespace Yokai\MessengerBundle\Exception;
 
+use Exception;
+use RuntimeException;
 use Yokai\MessengerBundle\Channel\ChannelInterface;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Message;
@@ -9,20 +11,21 @@ use Yokai\MessengerBundle\Message;
 /**
  * @author Yann Eugoné <yann.eugone@gmail.com>
  */
-class ChannelHandleException extends \RuntimeException implements ExceptionInterface
+class ChannelHandleException extends RuntimeException implements ExceptionInterface
 {
     /**
      * @param ChannelInterface $channel
      * @param Delivery         $delivery
-     * @param \Exception       $previous
+     * @param Exception       $previous
      *
      * @return ChannelHandleException
      */
-    public static function createOnException(ChannelInterface $channel, Delivery $delivery, \Exception $previous)
+    public static function createOnException(ChannelInterface $channel, Delivery $delivery, Exception $previous)
     {
         return new self(
             sprintf(
-                'An error has occurred during the notification process of message "%s" for channel "%s". Exception : %s - %s',
+                'An error has occurred during the notification process of message "%s" for channel "%s".'
+                .' Exception : %s - %s',
                 $delivery->getMessage(),
                 get_class($channel),
                 get_class($previous),

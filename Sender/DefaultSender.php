@@ -2,6 +2,7 @@
 
 namespace Yokai\MessengerBundle\Sender;
 
+use SplPriorityQueue;
 use Yokai\MessengerBundle\Channel\ChannelInterface;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Exception\BadConfigurationException;
@@ -93,7 +94,7 @@ class DefaultSender implements SenderInterface
             //Initialize the message by ID hash
             $this->messages[$message->getId()] = [
                 'object' => $message,
-                'channels' => new \SplPriorityQueue(),
+                'channels' => new SplPriorityQueue(),
             ];
         }
 

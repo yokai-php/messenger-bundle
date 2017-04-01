@@ -14,19 +14,6 @@ use Yokai\MessengerBundle\DependencyInjection\Factory\MessageDefinitionFactory;
 class YokaiMessengerExtension extends Extension
 {
     /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @param string $name
-     */
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
      * @inheritdoc
      */
     public function load(array $configs, ContainerBuilder $container)
@@ -70,22 +57,6 @@ class YokaiMessengerExtension extends Extension
         }
 
         $this->registerMessages($config['messages'], $container);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getConfiguration(array $config, ContainerBuilder $container)
-    {
-        return new Configuration($this->name);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAlias()
-    {
-        return $this->name;
     }
 
     /**

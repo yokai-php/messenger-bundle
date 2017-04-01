@@ -1,6 +1,7 @@
 <?php
 
 namespace Yokai\MessengerBundle;
+
 use Symfony\Component\HttpFoundation\File\File;
 
 /**

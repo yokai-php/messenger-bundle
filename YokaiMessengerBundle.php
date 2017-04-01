@@ -5,8 +5,6 @@ namespace Yokai\MessengerBundle;
 use Yokai\MessengerBundle\DependencyInjection\CompilerPass\ConfigureSenderCompilerPass;
 use Yokai\MessengerBundle\DependencyInjection\CompilerPass\RegisterMobileAdapterCompilerPass;
 use Yokai\MessengerBundle\DependencyInjection\CompilerPass\RegisterSwiftmailerConfiguratorCompilerPass;
-use Yokai\MessengerBundle\DependencyInjection\YokaiMessengerExtension;
-use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -15,22 +13,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class YokaiMessengerBundle extends Bundle
 {
-    /**
-     * @inheritdoc
-     */
-    public function getContainerExtension()
-    {
-        return new YokaiMessengerExtension('yokai_messenger');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function registerCommands(Application $application)
-    {
-        // commands are registered using dependency injection tags
-    }
-
     /**
      * @inheritdoc
      */

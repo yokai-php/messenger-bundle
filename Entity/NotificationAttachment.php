@@ -3,7 +3,7 @@
 namespace Yokai\MessengerBundle\Entity;
 
 /**
- * Notification Attachment Doctrine ORM entity
+ * @author Yann Eugoné <yann.eugone@gmail.com>
  */
 class NotificationAttachment
 {
