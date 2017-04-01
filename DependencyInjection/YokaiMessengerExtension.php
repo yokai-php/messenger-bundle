@@ -14,45 +14,64 @@ use Yokai\MessengerBundle\DependencyInjection\Factory\MessageDefinitionFactory;
 class YokaiMessengerExtension extends Extension
 {
     /**
+     * @var array
+     */
+    private $enabledChannelMap = [
+        'swiftmailer' => [
+            'class' => 'Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle',
+            'bundle' => true,
+        ],
+        'doctrine' => [
+            'class' => 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle',
+            'bundle' => true,
+        ],
+        'mobile' => [
+            'class' => 'Sly\NotificationPusher\NotificationPusher',
+            'bundle' => false,
+        ],
+    ];
+
+    /**
      * @inheritdoc
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $config = $this->processConfiguration(
-            $this->getConfiguration($configs, $container),
-            $configs
-        );
+        $config = $this->processConfiguration($this->getConfiguration($configs, $container), $configs);
 
-        $container->setParameter(
-            'yokai_messenger.content_builder_defaults',
-            $config['content_builder']
-        );
-        $container->setParameter(
-            'yokai_messenger.logging_channel',
-            $config['logging_channel']
-        );
+        $container->setParameter('yokai_messenger.content_builder_defaults', $config['content_builder']);
+        $container->setParameter('yokai_messenger.logging_channel', $config['logging_channel']);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
-        $swiftmailerEnabled = $config['channels']['swiftmailer']['enabled'] &&
-                              class_exists('Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle');
-        $doctrineEnabled = $config['channels']['doctrine']['enabled'] &&
-                           class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle');
-        $mobileEnabled = $config['channels']['mobile']['enabled'] &&
-                         class_exists('Sly\NotificationPusher\NotificationPusher');
+        $bundles = $container->getParameter('kernel.bundles');
+        $enabledChannels = [];
+        foreach ($this->enabledChannelMap as $channel => $enableConfig) {
+            $enabled = true;
+            if (!$config['channels'][$channel]['enabled']) {
+                $enabled = false;
+            }
+            if (!class_exists($enableConfig['class'])) {
+                $enabled = false;
+            }
+            if ($enableConfig['bundle'] && !in_array($enableConfig['class'], $bundles)) {
+                $enabled = false;
+            }
 
-        $container->setParameter('yokai_messenger.swiftmailer_enabled', $swiftmailerEnabled);
-        $container->setParameter('yokai_messenger.doctrine_enabled', $doctrineEnabled);
-        $container->setParameter('yokai_messenger.mobile_enabled', $mobileEnabled);
+            $enabledChannels[$channel] = $enabled;
+        }
 
-        if ($swiftmailerEnabled) {
+        foreach ($enabledChannels as $channel => $enabled) {
+            $container->setParameter('yokai_messenger.'.$channel.'_enabled', $enabled);
+        }
+
+        if ($enabledChannels['swiftmailer']) {
             $this->registerSwiftmailer($config['channels']['swiftmailer'], $container, $loader);
         }
-        if ($doctrineEnabled) {
+        if ($enabledChannels['doctrine']) {
             $this->registerDoctrine($config['channels']['doctrine'], $container, $loader);
         }
-        if ($mobileEnabled) {
+        if ($enabledChannels['mobile']) {
             $this->registerMobile($config['channels']['mobile'], $container, $loader);
         }
 
@@ -91,6 +110,8 @@ class YokaiMessengerExtension extends Extension
             )
         );
         $loader->load('doctrine.xml');
+
+        $container->setParameter('yokai_messenger.load_doctrine_orm_mapping', true);
     }
 
     /**
