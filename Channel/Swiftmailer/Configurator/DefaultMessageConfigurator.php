@@ -14,7 +14,7 @@ use Swift_Attachment;
 class DefaultMessageConfigurator implements SwiftMessageConfiguratorInterface
 {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function configure(Swift_Message $message, Delivery $delivery)
     {

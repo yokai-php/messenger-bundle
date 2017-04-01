@@ -2,6 +2,8 @@
 
 namespace Yokai\MessengerBundle\Tests\DependencyInjection;
 
+use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Yokai\MessengerBundle\Message;
 use Yokai\MessengerBundle\Tests\Fixtures\Channel\DummyChannel;
@@ -32,12 +34,24 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
         $bundle = new YokaiMessengerBundle();
         $this->container = new ContainerBuilder();
 
+        $bundles = [
+            'FrameworkBundle' => 'Symfony\Bundle\FrameworkBundle\FrameworkBundle',
+            'SwiftmailerBundle' => 'Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle',
+            'DoctrineBundle' => 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle',
+            'YokaiMessengerBundle' => 'Yokai\MessengerBundle\YokaiMessengerBundle',
+            'AppBundle' => 'AppBundle\AppBundle',
+        ];
+
         $this->container->setParameter('kernel.debug', true);
+        $this->container->setParameter('kernel.bundles', $bundles);
         $this->container->set('templating', $this->prophesize(EngineInterface::class)->reveal());
         $this->container->set('translator', $this->prophesize(TranslatorInterface::class)->reveal());
         $this->container->set('logger', $this->prophesize(LoggerInterface::class)->reveal());
         $this->container->set('mailer', $this->prophesize(\Swift_Mailer::class)->reveal());
         $this->container->setDefinition('doctrine.orm.default_entity_manager', new Definition(EntityManager::class));
+        $this->container->setDefinition('doctrine.orm.default_metadata_driver', new Definition(MappingDriverChain::class));
+        $this->container->setDefinition('doctrine.orm.default_configuration', new Definition(Configuration::class));
+        $this->container->setParameter('doctrine.default_entity_manager', 'default');
 
         $this->container->registerExtension($bundle->getContainerExtension());
         $bundle->build($this->container);

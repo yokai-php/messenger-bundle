@@ -23,7 +23,7 @@ class MobileRecipient implements MobileRecipientInterface
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function getDevicesTokens()
     {
