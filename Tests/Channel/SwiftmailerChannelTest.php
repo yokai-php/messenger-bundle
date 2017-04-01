@@ -2,15 +2,15 @@
 
 namespace Yokai\MessengerBundle\Tests\Channel;
 
+use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\SwiftMessageConfiguratorInterface;
 use Yokai\MessengerBundle\Channel\SwiftmailerChannel;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
-use Prophecy\Argument;
-use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

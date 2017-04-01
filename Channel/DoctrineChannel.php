@@ -3,13 +3,12 @@
 namespace Yokai\MessengerBundle\Channel;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Entity\Notification;
 use Yokai\MessengerBundle\Entity\NotificationAttachment;
 use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>

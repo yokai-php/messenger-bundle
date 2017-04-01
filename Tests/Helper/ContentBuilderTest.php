@@ -2,10 +2,10 @@
 
 namespace Yokai\MessengerBundle\Tests\Helper;
 
-use Yokai\MessengerBundle\Helper\ContentBuilder;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Yokai\MessengerBundle\Helper\ContentBuilder;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
