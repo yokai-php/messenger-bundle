@@ -81,7 +81,7 @@ class SwiftmailerChannel implements ChannelInterface
      */
     public function handle(Delivery $delivery)
     {
-        $mail = Swift_Message::newInstance();
+        $mail = new Swift_Message();
 
         $this->configurator->configure($mail, $delivery);
 
