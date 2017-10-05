@@ -104,7 +104,7 @@ public function registerBundles()
 
 ### Configuration
 
-Please [read](Resources/docs/documentation.md) the dedicated documentation.
+Please [read](Resources/docs/configuration.md) the dedicated documentation.
 
 
 Usage
