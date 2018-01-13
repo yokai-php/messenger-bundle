@@ -8,7 +8,7 @@
 
         <service id="yokai_messenger.swiftmailer_channel"
                  class="Yokai\MessengerBundle\Channel\SwiftmailerChannel"
-                 public="false">
+                 public="true">
             <argument type="service" id="mailer"/>
             <argument type="service" id="yokai_messenger.swiftmailer_chain_message_configurator"/>
             <argument>%yokai_messenger.swiftmailer_channel_defaults%</argument>

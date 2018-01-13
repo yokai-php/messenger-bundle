@@ -8,7 +8,7 @@
 
         <service id="yokai_messenger.mobile_channel"
                  class="Yokai\MessengerBundle\Channel\MobileChannel"
-                 public="false">
+                 public="true">
             <argument type="service" id="yokai_messenger.mobile.push_manager"/>
             <argument type="collection"/><!-- will be registered using compiler pass -->
 
