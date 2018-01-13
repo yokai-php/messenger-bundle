@@ -6,7 +6,9 @@
 
     <services>
 
-        <service id="yokai_messenger.doctrine_channel" class="Yokai\MessengerBundle\Channel\DoctrineChannel">
+        <service id="yokai_messenger.doctrine_channel"
+                 class="Yokai\MessengerBundle\Channel\DoctrineChannel"
+                 public="false">
             <argument type="service" id="yokai_messenger.doctrine_channel_manager"/>
 
             <tag name="yokai_messenger.channel" alias="doctrine"/>

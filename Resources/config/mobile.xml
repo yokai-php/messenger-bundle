@@ -6,14 +6,18 @@
 
     <services>
 
-        <service id="yokai_messenger.mobile_channel" class="Yokai\MessengerBundle\Channel\MobileChannel">
+        <service id="yokai_messenger.mobile_channel"
+                 class="Yokai\MessengerBundle\Channel\MobileChannel"
+                 public="false">
             <argument type="service" id="yokai_messenger.mobile.push_manager"/>
             <argument type="collection"/><!-- will be registered using compiler pass -->
 
             <tag name="yokai_messenger.channel" alias="mobile"/>
         </service>
 
-        <service id="yokai_messenger.mobile.push_manager" class="Sly\NotificationPusher\PushManager" public="false">
+        <service id="yokai_messenger.mobile.push_manager"
+                 class="Sly\NotificationPusher\PushManager"
+                 public="false">
             <argument>%yokai_messenger.mobile.push_manager.environment%</argument>
         </service>
 
