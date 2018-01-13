@@ -111,13 +111,25 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $calls);
 
         $this->assertSame('addChannel', $calls[0][0]);
-        $this->assertInstanceOf(Reference::class, $calls[0][1][0]);
+        $this->assertThat(
+            $calls[0][1][0],
+            $this->logicalOr(
+                $this->isInstanceOf(Reference::class),
+                $this->isInstanceOf(Definition::class)
+            )
+        );
         $this->assertSame('test_channel_1', (string) $calls[0][1][0]);
         $this->assertSame('test_1', $calls[0][1][1]);
         $this->assertSame(10, $calls[0][1][2]);
 
         $this->assertSame('addChannel', $calls[1][0]);
-        $this->assertInstanceOf(Reference::class, $calls[1][1][0]);
+        $this->assertThat(
+            $calls[1][1][0],
+            $this->logicalOr(
+                $this->isInstanceOf(Reference::class),
+                $this->isInstanceOf(Definition::class)
+            )
+        );
         $this->assertSame('test_channel_2', (string) $calls[1][1][0]);
         $this->assertSame('test_2', $calls[1][1][1]);
         $this->assertSame(1, $calls[1][1][2]);
