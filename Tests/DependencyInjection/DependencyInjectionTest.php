@@ -118,7 +118,9 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
                 $this->isInstanceOf(Definition::class)
             )
         );
-        $this->assertSame('test_channel_1', (string) $calls[0][1][0]);
+        if ($calls[0][1][0] instanceof Reference) {
+            $this->assertSame('test_channel_1', (string) $calls[0][1][0]);
+        }
         $this->assertSame('test_1', $calls[0][1][1]);
         $this->assertSame(10, $calls[0][1][2]);
 
@@ -130,7 +132,9 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
                 $this->isInstanceOf(Definition::class)
             )
         );
-        $this->assertSame('test_channel_2', (string) $calls[1][1][0]);
+        if ($calls[1][1][0] instanceof Reference) {
+            $this->assertSame('test_channel_2', (string) $calls[1][1][0]);
+        }
         $this->assertSame('test_2', $calls[1][1][1]);
         $this->assertSame(1, $calls[1][1][2]);
     }
