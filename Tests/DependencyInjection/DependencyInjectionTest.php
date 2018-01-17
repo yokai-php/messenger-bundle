@@ -110,15 +110,11 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(2, $calls);
 
-        $this->assertSame('addChannel', $calls[0][0]);
-        $this->assertInstanceOf(Reference::class, $calls[0][1][0]);
-        $this->assertSame('test_channel_1', (string) $calls[0][1][0]);
+        $this->assertCallReferenceOrDefinition($calls[0], 'addChannel', 'test_channel_1');
         $this->assertSame('test_1', $calls[0][1][1]);
         $this->assertSame(10, $calls[0][1][2]);
 
-        $this->assertSame('addChannel', $calls[1][0]);
-        $this->assertInstanceOf(Reference::class, $calls[1][1][0]);
-        $this->assertSame('test_channel_2', (string) $calls[1][1][0]);
+        $this->assertCallReferenceOrDefinition($calls[1], 'addChannel', 'test_channel_2');
         $this->assertSame('test_2', $calls[1][1][1]);
         $this->assertSame(1, $calls[1][1][2]);
     }
@@ -165,14 +161,10 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(2, $calls);
 
-        $this->assertSame('addMessage', $calls[0][0]);
-        $this->assertInstanceOf(Reference::class, $calls[0][1][0]);
-        $this->assertSame('test_message', (string) $calls[0][1][0]);
+        $this->assertCallReferenceOrDefinition($calls[0], 'addMessage', 'test_message');
         $this->assertSame('foo', $calls[0][1][1]);
 
-        $this->assertSame('addMessage', $calls[1][0]);
-        $this->assertInstanceOf(Reference::class, $calls[1][1][0]);
-        $this->assertSame('test_message', (string) $calls[1][1][0]);
+        $this->assertCallReferenceOrDefinition($calls[1], 'addMessage', 'test_message');
         $this->assertSame('bar', $calls[1][1][1]);
     }
 
@@ -228,6 +220,26 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
         foreach ($parameters as $name => $value) {
             $this->assertTrue($this->container->hasParameter($name), $name.' parameter not found');
             $this->assertSame($value, $this->container->getParameter($name));
+        }
+    }
+
+    /**
+     * @param array  $call
+     * @param string $method
+     * @param string $id
+     */
+    public function assertCallReferenceOrDefinition(array $call, $method, $id)
+    {
+        $this->assertSame($method, $call[0]);
+        $this->assertThat(
+            $call[1][0],
+            $this->logicalOr(
+                $this->isInstanceOf(Reference::class),
+                $this->isInstanceOf(Definition::class)
+            )
+        );
+        if ($call[1][0] instanceof Reference) {
+            $this->assertSame($id, (string) $call[1][0]);
         }
     }
 

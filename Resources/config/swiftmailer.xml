@@ -6,7 +6,9 @@
 
     <services>
 
-        <service id="yokai_messenger.swiftmailer_channel" class="Yokai\MessengerBundle\Channel\SwiftmailerChannel">
+        <service id="yokai_messenger.swiftmailer_channel"
+                 class="Yokai\MessengerBundle\Channel\SwiftmailerChannel"
+                 public="true">
             <argument type="service" id="mailer"/>
             <argument type="service" id="yokai_messenger.swiftmailer_chain_message_configurator"/>
             <argument>%yokai_messenger.swiftmailer_channel_defaults%</argument>
@@ -20,7 +22,8 @@
         </service>
 
         <service id="yokai_messenger.swiftmailer_default_message_configurator"
-                 class="Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\DefaultMessageConfigurator">
+                 class="Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\DefaultMessageConfigurator"
+                 public="false">
             <tag name="yokai_messenger.swiftmailer_message_configurator"/>
         </service>
 

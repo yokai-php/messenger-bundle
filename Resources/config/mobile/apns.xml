@@ -6,7 +6,9 @@
 
     <services>
 
-        <service id="yokai_messenger.mobile.apns_adapter" class="Sly\NotificationPusher\Adapter\Apns">
+        <service id="yokai_messenger.mobile.apns_adapter"
+                 class="Sly\NotificationPusher\Adapter\Apns"
+                 public="false">
             <argument type="collection">
                 <argument key="certificate">%yokai_messenger.mobile.apns_adapter.certificate%</argument>
                 <argument key="passPhrase">%yokai_messenger.mobile.apns_adapter.pass_phrase%</argument>
