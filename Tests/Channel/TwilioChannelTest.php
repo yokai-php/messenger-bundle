@@ -121,7 +121,7 @@ class TwilioChannelTest extends \PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function isSendingSmsProvider(): array
+    public function isSendingSmsProvider()
     {
         return [
             [
