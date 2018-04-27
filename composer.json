@@ -27,7 +27,7 @@
         "doctrine/doctrine-bundle": "~1.4",
         "symfony/swiftmailer-bundle": "~2.3",
         "sly/notification-pusher": "~2.2",
-        "twilio/sdk": "^5.17",
+        "twilio/sdk": "~5.17",
         "phpunit/phpunit": "~5.0"
     },
     "autoload": {

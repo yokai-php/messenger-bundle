@@ -25,6 +25,7 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
+  - phpenv config-add travis.php.ini
   - composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
 
