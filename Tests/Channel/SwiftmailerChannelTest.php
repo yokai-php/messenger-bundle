@@ -11,6 +11,7 @@ use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\TwilioRecipient;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -247,6 +248,10 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
             [
                 new SwiftmailerRecipient('john.doe@acme.org'),
                 true,
+            ],
+            [
+                new TwilioRecipient('+330601020304'),
+                false,
             ],
             [
                 'not an email',

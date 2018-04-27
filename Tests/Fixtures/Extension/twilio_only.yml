@@ -1,0 +1,8 @@
+
+yokai_messenger:
+  channels:
+    twilio:
+      from: '+330601020304'
+      api_id: 'azertyuiop'
+      api_token: 'qsdfghjklm'
+    doctrine: false

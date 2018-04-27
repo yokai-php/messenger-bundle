@@ -5,6 +5,7 @@ namespace Yokai\MessengerBundle\Helper;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Yokai\MessengerBundle\Channel\ChannelInterface;
 use Yokai\MessengerBundle\Exception\BadMethodCallException;
 
 /**
@@ -50,7 +51,9 @@ class ContentBuilder
     public function configure($options)
     {
         $resolver = (new OptionsResolver)
-            ->setRequired(['subject', 'template', 'translation_catalog'])
+            ->setRequired(['template'])
+            ->setDefault('subject', '')
+            ->setDefault('translation_catalog', '')
             ->setDefault('subject_parameters', [])
             ->setDefault('template_parameters', [])
             ->setDefault('template_vars', [])

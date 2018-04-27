@@ -251,7 +251,7 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
             $sets[] = [
                 'swiftmailer_only.' . $format,
                 ['swiftmailer'],
-                ['doctrine', 'mobile'],
+                ['doctrine', 'mobile', 'twilio'],
                 [
                     'yokai_messenger.swiftmailer_channel_defaults' => [
                         'from' => ['no-reply@acme.org' => 'NoReply', 'no-reply2@acme.org' => 'NoReply2'],
@@ -262,13 +262,13 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
             $sets[] = [
                 'doctrine_only.' . $format,
                 ['doctrine'],
-                ['swiftmailer', 'mobile'],
+                ['swiftmailer', 'mobile', 'twilio'],
                 []
             ];
             $sets[] = [
                 'mobile_only.' . $format,
                 ['mobile'],
-                ['swiftmailer', 'doctrine'],
+                ['swiftmailer', 'doctrine', 'twilio'],
                 [
                     'yokai_messenger.mobile.apns_adapter.certificate' => '/path/to/your/apns-certificate.pem',
                     'yokai_messenger.mobile.apns_adapter.pass_phrase' => 'example',
@@ -276,13 +276,30 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
                 ]
             ];
             $sets[] = [
+                'twilio_only.' . $format,
+                ['twilio'],
+                ['swiftmailer', 'doctrine', 'mobile'],
+                [
+                    'yokai_messenger.twilio_channel_defaults' => [
+                        'from' => '+330601020304',
+                        'api_id' => 'azertyuiop',
+                        'api_token' => 'qsdfghjklm',
+                    ],
+                ]
+            ];
+            $sets[] = [
                 'all.' . $format,
-                ['doctrine', 'swiftmailer', 'mobile'],
+                ['doctrine', 'swiftmailer', 'mobile', 'twilio'],
                 [],
                 [
                     'yokai_messenger.swiftmailer_channel_defaults' => [
                         'from' => ['no-reply@acme.org', 'no-reply@acme.org'],
                         'translator_catalog' => 'messaging'
+                    ],
+                    'yokai_messenger.twilio_channel_defaults' => [
+                        'from' => '+330601020304',
+                        'api_id' => 'azertyuiop',
+                        'api_token' => 'qsdfghjklm',
                     ],
                     'yokai_messenger.mobile.apns_adapter.certificate' => '/path/to/your/apns-certificate.pem',
                     'yokai_messenger.mobile.apns_adapter.pass_phrase' => 'example',
@@ -297,12 +314,17 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
             ];
             $sets[] = [
                 'full.' . $format,
-                ['doctrine', 'swiftmailer', 'mobile'],
+                ['doctrine', 'swiftmailer', 'mobile', 'twilio'],
                 [],
                 [
                     'yokai_messenger.swiftmailer_channel_defaults' => [
                         'from' => ['no-reply@acme.org'],
                         'translator_catalog' => 'messaging'
+                    ],
+                    'yokai_messenger.twilio_channel_defaults' => [
+                        'from' => '+330601020304',
+                        'api_id' => 'azertyuiop',
+                        'api_token' => 'qsdfghjklm',
                     ],
                     'yokai_messenger.mobile.apns_adapter.certificate' => '/path/to/your/apns-certificate.pem',
                     'yokai_messenger.mobile.apns_adapter.pass_phrase' => 'example',
