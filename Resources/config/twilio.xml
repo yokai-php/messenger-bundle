@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="yokai_messenger.twilio_channel"
+                 class="Yokai\MessengerBundle\Channel\TwilioChannel"
+                 public="true">
+            <argument type="service" id="yokai_messenger.twilio_client_factory"/>
+            <argument>%yokai_messenger.twilio_channel_defaults%</argument>
+
+            <tag name="yokai_messenger.channel" alias="twilio"/>
+        </service>
+
+        <service id="yokai_messenger.twilio_client_factory"
+                 class="Yokai\MessengerBundle\Channel\Twilio\Factory\ClientFactory">
+            <argument/>
+        </service>
+
+    </services>
+
+</container>

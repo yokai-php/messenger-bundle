@@ -12,6 +12,7 @@ use Yokai\MessengerBundle\Entity\Notification;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
 use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\TwilioRecipient;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -37,10 +38,7 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
 
     protected function createChannel(array $defaults)
     {
-        return new DoctrineChannel(
-            $this->manager->reveal(),
-            $defaults
-        );
+        return new DoctrineChannel($this->manager->reveal());
     }
 
     /**
@@ -107,6 +105,10 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
         return [
             [
                 new SwiftmailerRecipient('john.doe@acme.org'),
+                false,
+            ],
+            [
+                new TwilioRecipient('+330601020304'),
                 false,
             ],
             [

@@ -63,6 +63,7 @@ class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
             ->children()
                 ->append($this->getSwiftmailerChannelNode())
+                ->append($this->getTwilioChannelNode())
                 ->append($this->getDoctrineChannelNode())
                 ->append($this->getMobileChannelNode())
             ->end()
@@ -135,6 +136,33 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->end()
                 ->end()
                 ->scalarNode('translator_catalog')->defaultValue('notifications')->end()
+            ->end()
+        ;
+
+        return $node;
+    }
+
+    /**
+     * @return NodeDefinition
+     */
+    private function getTwilioChannelNode()
+    {
+        $node = $this->root('twilio');
+
+        $node
+            ->canBeEnabled()
+            ->validate()
+                ->ifTrue($this->nodeRequiredIfEnabled('from'))
+                    ->thenInvalid($this->nodeMustBeConfigured('from', 'channels.twilio'))
+                ->ifTrue($this->nodeRequiredIfEnabled('api_id'))
+                    ->thenInvalid($this->nodeMustBeConfigured('api_id', 'channels.twilio'))
+                ->ifTrue($this->nodeRequiredIfEnabled('api_token'))
+                    ->thenInvalid($this->nodeMustBeConfigured('api_token', 'channels.twilio'))
+            ->end()
+            ->children()
+                ->scalarNode('from')->end()
+                ->scalarNode('api_id')->end()
+                ->scalarNode('api_token')->end()
             ->end()
         ;
 

@@ -19,13 +19,15 @@
         "doctrine/orm": "Required to use the Doctrine channel that allow storing message in database",
         "doctrine/doctrine-bundle": "Required to use the Doctrine channel that allow storing message in database",
         "symfony/swiftmailer-bundle": "Required to use the Doctrine channel that allow sending message via email",
-        "sly/notification-pusher": "Required to use the Mobile channel that allow sending message via mobile notification"
+        "sly/notification-pusher": "Required to use the Mobile channel that allow sending message via mobile notification",
+        "twilio/sdk": "Required to use the Twilio channel that allow sending message via SMS"
     },
     "require-dev": {
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
         "symfony/swiftmailer-bundle": "~2.3",
         "sly/notification-pusher": "~2.2",
+        "twilio/sdk": "~5.17",
         "phpunit/phpunit": "~5.0"
     },
     "autoload": {

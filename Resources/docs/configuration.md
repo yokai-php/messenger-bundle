@@ -10,6 +10,7 @@ Please see per channel documentation :
 - `swiftmailer` : [read](channels/swiftmailer.md)
 - `doctrine` : [read](channels/doctrine.md)
 - `mobile` : [read](channels/mobile.md)
+- `twilio` : [read](channels/twilio.md)
 
 
 Messages

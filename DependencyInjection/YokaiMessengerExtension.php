@@ -21,6 +21,10 @@ class YokaiMessengerExtension extends Extension
             'class' => 'Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle',
             'bundle' => true,
         ],
+        'twilio' => [
+            'class' => 'Twilio\Rest\Api',
+            'bundle' => false,
+        ],
         'doctrine' => [
             'class' => 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle',
             'bundle' => true,
@@ -68,6 +72,9 @@ class YokaiMessengerExtension extends Extension
         if ($enabledChannels['swiftmailer']) {
             $this->registerSwiftmailer($config['channels']['swiftmailer'], $container, $loader);
         }
+        if ($enabledChannels['twilio']) {
+            $this->registerTwilio($config['channels']['twilio'], $container, $loader);
+        }
         if ($enabledChannels['doctrine']) {
             $this->registerDoctrine($config['channels']['doctrine'], $container, $loader);
         }
@@ -93,6 +100,24 @@ class YokaiMessengerExtension extends Extension
             ]
         );
         $loader->load('swiftmailer.xml');
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
+    private function registerTwilio(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        $container->setParameter(
+            'yokai_messenger.twilio_channel_defaults',
+            [
+                'from' => $config['from'],
+                'api_id' => $config['api_id'],
+                'api_token' => $config['api_token'],
+            ]
+        );
+        $loader->load('twilio.xml');
     }
 
     /**

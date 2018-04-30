@@ -13,6 +13,10 @@ yokai_messenger:
         pass_phrase: example
       gcm:
         api_key:     YourApiKey
+    twilio:
+      from: '+330601020304'
+      api_id: 'azertyuiop'
+      api_token: 'qsdfghjklm'
   messages:
     foo:
       id: foo
