@@ -44,7 +44,7 @@ class Notification
     private $recipientClass;
 
     /**
-     * @var int
+     * @var string
      */
     private $recipientId;
 
@@ -110,7 +110,7 @@ class Notification
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getRecipientId()
     {

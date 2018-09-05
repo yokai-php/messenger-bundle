@@ -64,14 +64,14 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
 
     public function testIsCreatingNotificationEntity()
     {
-        $recipient = new DoctrineRecipient(1);
+        $recipient = new DoctrineRecipient('1');
 
         $notificationProphecy = Argument::allOf(
             Argument::type(Notification::class),
             Argument::which('getSubject', 'subject'),
             Argument::which('getBody', 'body'),
             Argument::which('getRecipientClass', DoctrineRecipient::class),
-            Argument::which('getRecipientId', 1)
+            Argument::which('getRecipientId', '1')
         );
 
         $this->manager->persist($notificationProphecy)
@@ -112,7 +112,7 @@ class DoctrineChannelTest extends \PHPUnit_Framework_TestCase
                 false,
             ],
             [
-                new DoctrineRecipient(1),
+                new DoctrineRecipient('1'),
                 true,
             ],
             [

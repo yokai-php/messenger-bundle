@@ -181,7 +181,7 @@ class TwilioChannelTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                new DoctrineRecipient(1),
+                new DoctrineRecipient('1'),
                 false,
             ],
             [
