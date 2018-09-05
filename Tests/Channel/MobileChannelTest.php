@@ -171,7 +171,7 @@ class MobileChannelTest extends \PHPUnit_Framework_TestCase
                 false,
             ],
             [
-                new DoctrineRecipient(1),
+                new DoctrineRecipient('1'),
                 false,
             ],
             [

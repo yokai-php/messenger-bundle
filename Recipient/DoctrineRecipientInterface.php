@@ -8,7 +8,7 @@ namespace Yokai\MessengerBundle\Recipient;
 interface DoctrineRecipientInterface
 {
     /**
-     * @return int
+     * @return string
      */
     public function getId();
 }
