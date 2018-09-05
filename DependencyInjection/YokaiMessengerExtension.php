@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Yokai\MessengerBundle\DependencyInjection\Factory\MessageDefinitionFactory;
+use Yokai\MessengerBundle\Sender\SenderInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -83,6 +84,8 @@ class YokaiMessengerExtension extends Extension
         }
 
         $this->registerMessages($config['messages'], $container);
+
+        $container->setAlias(SenderInterface::class, 'yokai_messenger.sender');
     }
 
     /**
