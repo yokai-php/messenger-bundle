@@ -5,6 +5,7 @@ namespace Yokai\MessengerBundle\Tests\Helper;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Twig\Environment;
 use Yokai\MessengerBundle\Helper\ContentBuilder;
 
 /**
@@ -15,7 +16,7 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @var ObjectProphecy
      */
-    private $templating;
+    private $twig;
 
     /**
      * @var ObjectProphecy
@@ -24,14 +25,14 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->templating = $this->prophesize(EngineInterface::class);
+        $this->twig = $this->prophesize(Environment::class);
         $this->translator = $this->prophesize(TranslatorInterface::class);
     }
 
     protected function tearDown()
     {
         unset(
-            $this->templating,
+            $this->twig,
             $this->translator
         );
     }
@@ -39,7 +40,7 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
     protected function createHelper(array $defaults)
     {
         return new ContentBuilder(
-            $this->templating->reveal(),
+            $this->twig->reveal(),
             $this->translator->reveal(),
             $defaults
         );
@@ -124,7 +125,7 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
 
         $helper->configure($options);
 
-        $this->templating->render($expectedTemplate, $expectedParameters)
+        $this->twig->render($expectedTemplate, $expectedParameters)
             ->shouldBeCalled()
             ->willReturn('test ok');
 
