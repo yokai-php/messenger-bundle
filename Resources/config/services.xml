@@ -19,7 +19,7 @@
         <service id="yokai_messenger.content_builder"
                  class="Yokai\MessengerBundle\Helper\ContentBuilder"
                  public="false">
-            <argument type="service" id="templating"/>
+            <argument type="service" id="twig"/>
             <argument type="service" id="translator"/>
             <argument>%yokai_messenger.content_builder_defaults%</argument>
         </service>

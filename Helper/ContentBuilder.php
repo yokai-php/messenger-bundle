@@ -3,9 +3,8 @@
 namespace Yokai\MessengerBundle\Helper;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Yokai\MessengerBundle\Channel\ChannelInterface;
+use Twig\Environment;
 use Yokai\MessengerBundle\Exception\BadMethodCallException;
 
 /**
@@ -14,9 +13,9 @@ use Yokai\MessengerBundle\Exception\BadMethodCallException;
 class ContentBuilder
 {
     /**
-     * @var EngineInterface
+     * @var Environment
      */
-    private $templating;
+    private $twig;
 
     /**
      * @var TranslatorInterface
@@ -34,13 +33,13 @@ class ContentBuilder
     private $options;
 
     /**
-     * @param EngineInterface     $templating
+     * @param Environment         $twig
      * @param TranslatorInterface $translator
      * @param array               $defaults
      */
-    public function __construct(EngineInterface $templating, TranslatorInterface $translator, array $defaults)
+    public function __construct(Environment $twig, TranslatorInterface $translator, array $defaults)
     {
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->translator = $translator;
         $this->defaults = $defaults;
     }
@@ -117,7 +116,7 @@ class ContentBuilder
             );
         }
 
-        return $this->templating->render(
+        return $this->twig->render(
             strtr(
                 $this->options['template'],
                 array_intersect_key($parameters, array_flip($this->options['template_parameters']))
