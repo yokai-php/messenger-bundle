@@ -3,7 +3,6 @@
 namespace Yokai\MessengerBundle\Tests\Helper;
 
 use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Environment;
 use Yokai\MessengerBundle\Helper\ContentBuilder;

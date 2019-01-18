@@ -11,8 +11,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Twig\Environment;
 use Yokai\MessengerBundle\Message;
 use Yokai\MessengerBundle\Tests\Fixtures\Channel\DummyChannel;
 use Yokai\MessengerBundle\Tests\Fixtures\Channel\InvalidChannel;
@@ -44,7 +44,7 @@ class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
 
         $this->container->setParameter('kernel.debug', true);
         $this->container->setParameter('kernel.bundles', $bundles);
-        $this->container->set('templating', $this->prophesize(EngineInterface::class)->reveal());
+        $this->container->set('twig', $this->prophesize(Environment::class)->reveal());
         $this->container->set('translator', $this->prophesize(TranslatorInterface::class)->reveal());
         $this->container->set('logger', $this->prophesize(LoggerInterface::class)->reveal());
         $this->container->set('mailer', $this->prophesize(\Swift_Mailer::class)->reveal());
