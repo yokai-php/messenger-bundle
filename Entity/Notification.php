@@ -6,7 +6,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Util\ClassUtils;
-use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
+use Yokai\MessengerBundle\Recipient\IdentifierRecipientInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -54,11 +54,11 @@ class Notification
     private $deliveredAt;
 
     /**
-     * @param string                     $subject
-     * @param string                     $body
-     * @param DoctrineRecipientInterface $recipient
+     * @param string                       $subject
+     * @param string                       $body
+     * @param IdentifierRecipientInterface $recipient
      */
-    public function __construct($subject, $body, DoctrineRecipientInterface $recipient)
+    public function __construct($subject, $body, IdentifierRecipientInterface $recipient)
     {
         $this->subject = $subject;
         $this->body = $body;

@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Entity\Notification;
 use Yokai\MessengerBundle\Entity\NotificationAttachment;
-use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
+use Yokai\MessengerBundle\Recipient\IdentifierRecipientInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -33,7 +33,7 @@ class DoctrineChannel implements ChannelInterface
      */
     public function supports($recipient)
     {
-        if (is_object($recipient) && $recipient instanceof DoctrineRecipientInterface) {
+        if (is_object($recipient) && $recipient instanceof IdentifierRecipientInterface) {
             return true;
         }
 

@@ -7,7 +7,7 @@ use Swift_Message;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\SwiftMessageConfiguratorInterface;
 use Yokai\MessengerBundle\Delivery;
-use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
+use Yokai\MessengerBundle\Recipient\EmailRecipientInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -49,7 +49,7 @@ class SwiftmailerChannel implements ChannelInterface
      */
     public function supports($recipient)
     {
-        if (is_object($recipient) && $recipient instanceof SwiftmailerRecipientInterface) {
+        if (is_object($recipient) && $recipient instanceof EmailRecipientInterface) {
             return true;
         }
 

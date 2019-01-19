@@ -7,10 +7,10 @@ use Yokai\MessengerBundle\Channel\Twilio\Factory\ClientFactoryInterface;
 use Yokai\MessengerBundle\Channel\TwilioChannel;
 use Yokai\MessengerBundle\Delivery;
 use Yokai\MessengerBundle\Tests\Channel\Mock\Twilio\Factory\MockClientFactory;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\TwilioRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\IdentifierRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\NotificationRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\EmailRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\PhoneRecipient;
 
 /**
  * @author Matthieu Crinquand <matthieu.crinquand@gmail.com>
@@ -171,7 +171,7 @@ class TwilioChannelTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 '+15005550006',
-                new TwilioRecipient('+15005551234'),
+                new PhoneRecipient('+15005551234'),
                 false,
             ],
         ];
@@ -181,15 +181,15 @@ class TwilioChannelTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                new DoctrineRecipient('1'),
+                new IdentifierRecipient('1'),
                 false,
             ],
             [
-                new SwiftmailerRecipient('john.doe@acme.org'),
+                new EmailRecipient('john.doe@acme.org'),
                 false,
             ],
             [
-                new TwilioRecipient('+330601020304'),
+                new PhoneRecipient('+330601020304'),
                 true,
             ],
             [
@@ -197,7 +197,7 @@ class TwilioChannelTest extends \PHPUnit_Framework_TestCase
                 true,
             ],
             [
-                new MobileRecipient(['foo', 'bar']),
+                new NotificationRecipient(['foo', 'bar']),
                 false,
             ],
         ];

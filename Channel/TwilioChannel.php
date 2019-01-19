@@ -5,7 +5,7 @@ namespace Yokai\MessengerBundle\Channel;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\Twilio\Factory\ClientFactoryInterface;
 use Yokai\MessengerBundle\Delivery;
-use Yokai\MessengerBundle\Recipient\TwilioRecipientInterface;
+use Yokai\MessengerBundle\Recipient\PhoneRecipientInterface;
 
 /**
  * @author Matthieu Crinquand <matthieu.crinquand@gmail.com>
@@ -36,7 +36,7 @@ class TwilioChannel implements ChannelInterface
 
     public function supports($recipient)
     {
-        if (is_object($recipient) && $recipient instanceof TwilioRecipientInterface) {
+        if (is_object($recipient) && $recipient instanceof PhoneRecipientInterface) {
             return true;
         }
 
@@ -69,7 +69,7 @@ class TwilioChannel implements ChannelInterface
 
         $client = $this->twilioClientFactory->createClient($options['api_id'], $options['api_token']);
 
-        $phone = $recipient instanceof TwilioRecipientInterface ? $recipient->getPhone() : $recipient;
+        $phone = $recipient instanceof PhoneRecipientInterface ? $recipient->getPhone() : $recipient;
 
         $client->messages->create($phone, [
             'from' => $options['from'],

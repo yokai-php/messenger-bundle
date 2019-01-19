@@ -4,11 +4,9 @@ namespace Yokai\MessengerBundle\Recipient;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
+ *
+ * @deprecated since 1.5, use \Yokai\MessengerBundle\Recipient\EmailRecipientInterface instead
  */
-interface SwiftmailerRecipientInterface
+interface SwiftmailerRecipientInterface extends EmailRecipientInterface
 {
-    /**
-     * @return string
-     */
-    public function getEmail();
 }

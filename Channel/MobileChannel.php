@@ -10,7 +10,7 @@ use Sly\NotificationPusher\Model\Push;
 use Sly\NotificationPusher\PushManager;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Delivery;
-use Yokai\MessengerBundle\Recipient\MobileRecipientInterface;
+use Yokai\MessengerBundle\Recipient\NotificationRecipientInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -42,7 +42,7 @@ class MobileChannel implements ChannelInterface
      */
     public function supports($recipient)
     {
-        return $recipient instanceof MobileRecipientInterface;
+        return $recipient instanceof NotificationRecipientInterface;
     }
 
     /**
@@ -60,7 +60,7 @@ class MobileChannel implements ChannelInterface
      */
     public function handle(Delivery $delivery)
     {
-        /** @var $recipient MobileRecipientInterface */
+        /** @var $recipient NotificationRecipientInterface */
         $recipient = $delivery->getRecipient();
 
         $options = $delivery->getOptions();
