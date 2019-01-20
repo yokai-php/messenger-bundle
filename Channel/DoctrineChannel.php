@@ -33,11 +33,7 @@ class DoctrineChannel implements ChannelInterface
      */
     public function supports($recipient)
     {
-        if (is_object($recipient) && $recipient instanceof IdentifierRecipientInterface) {
-            return true;
-        }
-
-        return false;
+        return $recipient instanceof IdentifierRecipientInterface;
     }
 
     /**

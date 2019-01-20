@@ -49,12 +49,12 @@ class SwiftmailerChannel implements ChannelInterface
      */
     public function supports($recipient)
     {
-        if (is_object($recipient) && $recipient instanceof EmailRecipientInterface) {
-            return true;
+        if (is_object($recipient)) {
+            return $recipient instanceof EmailRecipientInterface;
         }
 
-        if (is_string($recipient) && filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
-            return true;
+        if (is_string($recipient)) {
+            return filter_var($recipient, FILTER_VALIDATE_EMAIL);
         }
 
         return false;

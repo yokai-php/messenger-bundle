@@ -36,8 +36,8 @@ class TwilioChannel implements ChannelInterface
 
     public function supports($recipient)
     {
-        if (is_object($recipient) && $recipient instanceof PhoneRecipientInterface) {
-            return true;
+        if (is_object($recipient)) {
+            return $recipient instanceof PhoneRecipientInterface;
         }
 
         if (is_string($recipient)) {
