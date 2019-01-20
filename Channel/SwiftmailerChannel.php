@@ -54,7 +54,7 @@ class SwiftmailerChannel implements ChannelInterface
         }
 
         if (is_string($recipient)) {
-            return filter_var($recipient, FILTER_VALIDATE_EMAIL);
+            return false !== filter_var($recipient, FILTER_VALIDATE_EMAIL);
         }
 
         return false;
