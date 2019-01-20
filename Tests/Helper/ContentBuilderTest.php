@@ -2,6 +2,7 @@
 
 namespace Yokai\MessengerBundle\Tests\Helper;
 
+use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -131,6 +132,24 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('test ok', $helper->getBody($parameters));
     }
 
+    /**
+     * @dataProvider noBuild
+     */
+    public function testBuildNoSubject($value)
+    {
+        $helper = $this->createHelper([]);
+
+        $helper->configure(['subject' => $value, 'template' => $value]);
+
+        $this->templating->render(Argument::cetera())
+            ->shouldNotBeCalled();
+        $this->translator->trans(Argument::cetera())
+            ->shouldNotBeCalled();
+
+        $this->assertSame('', $helper->getSubject([]));
+        $this->assertSame('', $helper->getBody([]));
+    }
+
     public function subjectProvider()
     {
         return [
@@ -223,6 +242,15 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
                     '{greet}' => 'name',
                 ],
             ],
+        ];
+    }
+
+    public function noBuild()
+    {
+        return [
+            [null],
+            [''],
+            [false],
         ];
     }
 }
