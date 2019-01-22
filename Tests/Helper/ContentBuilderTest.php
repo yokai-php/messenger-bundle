@@ -39,9 +39,10 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
     protected function createHelper(array $defaults)
     {
         return new ContentBuilder(
-            $this->twig->reveal(),
             $this->translator->reveal(),
-            $defaults
+            $defaults,
+            null,
+            $this->twig->reveal()
         );
     }
 
