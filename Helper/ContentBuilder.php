@@ -5,7 +5,7 @@ namespace Yokai\MessengerBundle\Helper;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Yokai\MessengerBundle\Channel\ChannelInterface;
+use Twig\Environment;
 use Yokai\MessengerBundle\Exception\BadMethodCallException;
 
 /**
@@ -14,9 +14,14 @@ use Yokai\MessengerBundle\Exception\BadMethodCallException;
 class ContentBuilder
 {
     /**
-     * @var EngineInterface
+     * @var EngineInterface|null
      */
     private $templating;
+
+    /**
+     * @var Environment|null
+     */
+    private $twig;
 
     /**
      * @var TranslatorInterface
@@ -34,12 +39,18 @@ class ContentBuilder
     private $options;
 
     /**
-     * @param EngineInterface     $templating
-     * @param TranslatorInterface $translator
-     * @param array               $defaults
+     * @param TranslatorInterface  $translator
+     * @param array                $defaults
+     * @param EngineInterface|null $templating
+     * @param Environment|null     $twig
      */
-    public function __construct(EngineInterface $templating, TranslatorInterface $translator, array $defaults)
-    {
+    public function __construct(
+        TranslatorInterface $translator,
+        array $defaults,
+        EngineInterface $templating = null,
+        Environment $twig = null
+    ) {
+        $this->twig = $twig;
         $this->templating = $templating;
         $this->translator = $translator;
         $this->defaults = $defaults;
@@ -117,12 +128,20 @@ class ContentBuilder
             );
         }
 
-        return $this->templating->render(
-            strtr(
-                $this->options['template'],
-                array_intersect_key($parameters, array_flip($this->options['template_parameters']))
-            ),
-            array_merge($parameters, $this->options['template_vars'])
+        $template = strtr(
+            $this->options['template'],
+            array_intersect_key($parameters, array_flip($this->options['template_parameters']))
         );
+        $variables = array_merge($parameters, $this->options['template_vars']);
+
+        if ($this->twig !== null) {
+            return $this->twig->render($template, $variables);
+        } elseif ($this->templating !== null) {
+            return $this->templating->render($template, $variables);
+        } else {
+            throw new \LogicException(
+                sprintf('You can not use %s without "symfony/templating" or "symfony/twig-bundle".', __CLASS__)
+            );
+        }
     }
 }

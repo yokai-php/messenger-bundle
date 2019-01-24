@@ -67,7 +67,7 @@ options available are :
 
 ### Building body
 
-The body is built using [Symfony's templating component](http://symfony.com/doc/current/components/templating.html), 
+The body is built using [Twig](https://twig.symfony.com/), 
 options available are :
 
 - `template`: a template name (or pattern)
