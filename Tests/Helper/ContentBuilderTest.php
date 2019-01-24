@@ -142,7 +142,7 @@ class ContentBuilderTest extends \PHPUnit_Framework_TestCase
 
         $helper->configure(['subject' => $value, 'template' => $value]);
 
-        $this->templating->render(Argument::cetera())
+        $this->twig->render(Argument::cetera())
             ->shouldNotBeCalled();
         $this->translator->trans(Argument::cetera())
             ->shouldNotBeCalled();
