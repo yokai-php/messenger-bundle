@@ -3,7 +3,7 @@
 namespace Yokai\MessengerBundle\Tests\Entity;
 
 use Yokai\MessengerBundle\Entity\Notification;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\IdentifierRecipient;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -15,13 +15,13 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         $notification = new Notification(
             'subject',
             'body',
-            new DoctrineRecipient('1')
+            new IdentifierRecipient('1')
         );
 
         $this->assertSame(null, $notification->getId());
         $this->assertSame('subject', $notification->getSubject());
         $this->assertSame('body', $notification->getBody());
-        $this->assertSame(DoctrineRecipient::class, $notification->getRecipientClass());
+        $this->assertSame(IdentifierRecipient::class, $notification->getRecipientClass());
         $this->assertSame('1', $notification->getRecipientId());
         $this->assertInstanceOf(\DateTime::class, $notification->getRecordedAt());
 
@@ -37,7 +37,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         $notification = new Notification(
             'subject',
             'body',
-            new DoctrineRecipient('1')
+            new IdentifierRecipient('1')
         );
 
         $notification->setDelivered();

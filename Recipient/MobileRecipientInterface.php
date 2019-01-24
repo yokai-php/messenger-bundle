@@ -4,11 +4,9 @@ namespace Yokai\MessengerBundle\Recipient;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
+ *
+ * @deprecated since 1.5, use \Yokai\MessengerBundle\Recipient\NotificationRecipientInterface instead
  */
-interface MobileRecipientInterface
+interface MobileRecipientInterface extends NotificationRecipientInterface
 {
-    /**
-     * @return array
-     */
-    public function getDevicesTokens();
 }
