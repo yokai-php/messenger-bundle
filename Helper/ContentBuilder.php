@@ -62,18 +62,29 @@ class ContentBuilder
     public function configure($options)
     {
         $resolver = (new OptionsResolver)
-            ->setRequired(['template'])
+            ->setDefault('template', '')
+            ->setAllowedTypes('template', ['string', 'null', 'boolean'])
+
             ->setDefault('subject', '')
+            ->setAllowedTypes('subject', ['string', 'null', 'boolean'])
+
             ->setDefault('translation_catalog', '')
+            ->setAllowedTypes('translation_catalog', 'string')
+
             ->setDefault('subject_parameters', [])
-            ->setDefault('template_parameters', [])
-            ->setDefault('template_vars', [])
+            ->setAllowedTypes('subject_parameters', 'array')
             ->setNormalizer('subject_parameters', function ($opts, $value) {
                 return array_values((array) $value);
             })
+
+            ->setDefault('template_parameters', [])
+            ->setAllowedTypes('template_parameters', 'array')
             ->setNormalizer('template_parameters', function ($opts, $value) {
                 return array_values((array) $value);
             })
+
+            ->setDefault('template_vars', [])
+            ->setAllowedTypes('template_vars', 'array')
             ->setNormalizer('template_vars', function ($opts, $value) {
                 return (array) $value;
             })
@@ -107,6 +118,10 @@ class ContentBuilder
             );
         }
 
+        if (!$this->options['subject']) {
+            return '';
+        }
+
         return $this->translator->trans(
             $this->options['subject'],
             array_intersect_key($parameters, array_flip($this->options['subject_parameters'])),
@@ -126,6 +141,10 @@ class ContentBuilder
                 __CLASS__.'::configure',
                 __METHOD__
             );
+        }
+
+        if (!$this->options['template']) {
+            return '';
         }
 
         $template = strtr(
