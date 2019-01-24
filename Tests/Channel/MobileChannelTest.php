@@ -13,10 +13,10 @@ use Sly\NotificationPusher\PushManager;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\MobileChannel;
 use Yokai\MessengerBundle\Delivery;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\TwilioRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\IdentifierRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\NotificationRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\EmailRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\PhoneRecipient;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -71,7 +71,7 @@ class MobileChannelTest extends \PHPUnit_Framework_TestCase
 
     public function testIsPushingToPushManager()
     {
-        $recipient = new MobileRecipient(['foo', 'bar']);
+        $recipient = new NotificationRecipient(['foo', 'bar']);
 
         $fooAdapter = $this->createAdapter();
         $fooAdapter->supports('foo')
@@ -163,19 +163,19 @@ class MobileChannelTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                new SwiftmailerRecipient('john.doe@acme.org'),
+                new EmailRecipient('john.doe@acme.org'),
                 false,
             ],
             [
-                new TwilioRecipient('+330601020304'),
+                new PhoneRecipient('+330601020304'),
                 false,
             ],
             [
-                new DoctrineRecipient('1'),
+                new IdentifierRecipient('1'),
                 false,
             ],
             [
-                new MobileRecipient(['foo', 'bar']),
+                new NotificationRecipient(['foo', 'bar']),
                 true,
             ],
         ];

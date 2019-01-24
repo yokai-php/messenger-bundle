@@ -5,7 +5,7 @@ namespace Yokai\MessengerBundle\Channel\Swiftmailer\Configurator;
 use Swift_Attachment;
 use Swift_Message;
 use Yokai\MessengerBundle\Delivery;
-use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
+use Yokai\MessengerBundle\Recipient\EmailRecipientInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -24,7 +24,7 @@ class DefaultMessageConfigurator implements SwiftMessageConfiguratorInterface
         $message
             ->setSubject($delivery->getSubject())
             ->setFrom($options['from'])
-            ->setTo($recipient instanceof SwiftmailerRecipientInterface ? $recipient->getEmail() : $recipient)
+            ->setTo($recipient instanceof EmailRecipientInterface ? $recipient->getEmail() : $recipient)
             ->setBody($delivery->getBody(), 'text/html')
         ;
 

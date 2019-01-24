@@ -19,9 +19,10 @@
         <service id="yokai_messenger.content_builder"
                  class="Yokai\MessengerBundle\Helper\ContentBuilder"
                  public="false">
-            <argument type="service" id="templating"/>
             <argument type="service" id="translator"/>
             <argument>%yokai_messenger.content_builder_defaults%</argument>
+            <argument type="service" id="templating" on-invalid="ignore"/>
+            <argument type="service" id="twig" on-invalid="ignore"/>
         </service>
 
         <service id="yokai_messenger.notification_repository"

@@ -8,10 +8,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Yokai\MessengerBundle\Channel\Swiftmailer\Configurator\SwiftMessageConfiguratorInterface;
 use Yokai\MessengerBundle\Channel\SwiftmailerChannel;
 use Yokai\MessengerBundle\Delivery;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\DoctrineRecipient;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\MobileRecipient;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\SwiftmailerRecipient;
-use Yokai\MessengerBundle\Tests\Fixtures\Recipient\TwilioRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\IdentifierRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\NotificationRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\EmailRecipient;
+use Yokai\MessengerBundle\Tests\Fixtures\Recipient\PhoneRecipient;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -82,7 +82,7 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
     {
         $delivery1 = new Delivery(
             'test',
-            new SwiftmailerRecipient('john.doe@test.test'),
+            new EmailRecipient('john.doe@test.test'),
             [
                 'from' => 'no-reply@test.test'
             ],
@@ -151,7 +151,7 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
     {
         $delivery1 = new Delivery(
             'test',
-            new SwiftmailerRecipient('john.doe@test.test'),
+            new EmailRecipient('john.doe@test.test'),
             [
                 'from' => [
                     'no-reply@test.test' => 'NoReply'
@@ -242,15 +242,15 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                new DoctrineRecipient('1'),
+                new IdentifierRecipient('1'),
                 false,
             ],
             [
-                new SwiftmailerRecipient('john.doe@acme.org'),
+                new EmailRecipient('john.doe@acme.org'),
                 true,
             ],
             [
-                new TwilioRecipient('+330601020304'),
+                new PhoneRecipient('+330601020304'),
                 false,
             ],
             [
@@ -262,7 +262,7 @@ class SwiftmailerChannelTest extends \PHPUnit_Framework_TestCase
                 true,
             ],
             [
-                new MobileRecipient(['foo', 'bar']),
+                new NotificationRecipient(['foo', 'bar']),
                 false,
             ],
         ];

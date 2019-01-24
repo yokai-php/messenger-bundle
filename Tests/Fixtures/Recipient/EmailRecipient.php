@@ -2,12 +2,12 @@
 
 namespace Yokai\MessengerBundle\Tests\Fixtures\Recipient;
 
-use Yokai\MessengerBundle\Recipient\SwiftmailerRecipientInterface;
+use Yokai\MessengerBundle\Recipient\EmailRecipientInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
  */
-class SwiftmailerRecipient implements SwiftmailerRecipientInterface
+class EmailRecipient implements EmailRecipientInterface
 {
     private $email;
 

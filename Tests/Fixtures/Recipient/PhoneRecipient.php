@@ -2,12 +2,12 @@
 
 namespace Yokai\MessengerBundle\Tests\Fixtures\Recipient;
 
-use Yokai\MessengerBundle\Recipient\TwilioRecipientInterface;
+use Yokai\MessengerBundle\Recipient\PhoneRecipientInterface;
 
 /**
  * @author Matthieu Crinquand <matthieu.crinquand@gmail.com>
  */
-class TwilioRecipient implements TwilioRecipientInterface
+class PhoneRecipient implements PhoneRecipientInterface
 {
     private $phone;
 

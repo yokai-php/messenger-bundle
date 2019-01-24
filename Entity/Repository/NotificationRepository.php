@@ -6,7 +6,7 @@ use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Yokai\MessengerBundle\Entity\Notification;
-use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
+use Yokai\MessengerBundle\Recipient\IdentifierRecipientInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
@@ -24,12 +24,12 @@ class NotificationRepository extends EntityRepository
     }
 
     /**
-     * @param QueryBuilder               $builder
-     * @param DoctrineRecipientInterface $recipient
+     * @param QueryBuilder                 $builder
+     * @param IdentifierRecipientInterface $recipient
      *
      * @return QueryBuilder
      */
-    public function addRecipientConditions(QueryBuilder $builder, DoctrineRecipientInterface $recipient)
+    public function addRecipientConditions(QueryBuilder $builder, IdentifierRecipientInterface $recipient)
     {
         $alias = $builder->getRootAliases()[0];
         $builder
@@ -47,11 +47,11 @@ class NotificationRepository extends EntityRepository
     }
 
     /**
-     * @param DoctrineRecipientInterface  $recipient
+     * @param IdentifierRecipientInterface  $recipient
      *
      * @return int
      */
-    public function countUndeliveredRecipientNotification(DoctrineRecipientInterface $recipient)
+    public function countUndeliveredRecipientNotification(IdentifierRecipientInterface $recipient)
     {
         $builder = $this->createQueryBuilder('notification');
         $builder
@@ -64,11 +64,11 @@ class NotificationRepository extends EntityRepository
     }
 
     /**
-     * @param DoctrineRecipientInterface $recipient
+     * @param IdentifierRecipientInterface $recipient
      *
      * @return Notification[]
      */
-    public function findUndeliveredRecipientNotification(DoctrineRecipientInterface $recipient)
+    public function findUndeliveredRecipientNotification(IdentifierRecipientInterface $recipient)
     {
         $builder = $this->createQueryBuilder('notification');
 
@@ -80,11 +80,11 @@ class NotificationRepository extends EntityRepository
     }
 
     /**
-     * @param DoctrineRecipientInterface $recipient
+     * @param IdentifierRecipientInterface $recipient
      *
      * @return Notification[]
      */
-    public function findAllForRecipient(DoctrineRecipientInterface $recipient)
+    public function findAllForRecipient(IdentifierRecipientInterface $recipient)
     {
         $builder = $this->createQueryBuilder('notification');
 

@@ -2,12 +2,12 @@
 
 namespace Yokai\MessengerBundle\Tests\Fixtures\Recipient;
 
-use Yokai\MessengerBundle\Recipient\MobileRecipientInterface;
+use Yokai\MessengerBundle\Recipient\NotificationRecipientInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
  */
-class MobileRecipient implements MobileRecipientInterface
+class NotificationRecipient implements NotificationRecipientInterface
 {
     /**
      * @var array

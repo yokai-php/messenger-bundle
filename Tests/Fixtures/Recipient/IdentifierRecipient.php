@@ -2,12 +2,12 @@
 
 namespace Yokai\MessengerBundle\Tests\Fixtures\Recipient;
 
-use Yokai\MessengerBundle\Recipient\DoctrineRecipientInterface;
+use Yokai\MessengerBundle\Recipient\IdentifierRecipientInterface;
 
 /**
  * @author Yann Eugoné <eugone.yann@gmail.com>
  */
-class DoctrineRecipient implements DoctrineRecipientInterface
+class IdentifierRecipient implements IdentifierRecipientInterface
 {
     private $id;
 
