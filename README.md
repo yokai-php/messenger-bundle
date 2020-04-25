@@ -1,6 +1,9 @@
 YokaiMessengerBundle
 ====================
 
+> :warning: This package is abandoned and no longer maintained. The author suggests using the [symfony/notifier](https://github.com/symfony/notifier) package instead.
+
+
 [![Latest Stable Version](https://poser.pugx.org/yokai/messenger-bundle/v/stable)](https://packagist.org/packages/yokai/messenger-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/yokai/messenger-bundle/v/unstable)](https://packagist.org/packages/yokai/messenger-bundle)
 [![Total Downloads](https://poser.pugx.org/yokai/messenger-bundle/downloads)](https://packagist.org/packages/yokai/messenger-bundle)
